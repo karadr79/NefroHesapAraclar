@@ -1,0 +1,80 @@
+GEÇTİ | CKD-EPI 2021 cr, K 50y Kr 1,0 | hesap 68.633 | beklenen 68.6 ±0.6 | Inker 2021; NKF eGFR calculator ≈68
+GEÇTİ | CKD-EPI 2021 cr, E 60y Kr 1,2 | hesap 69.231 | beklenen 69.2 ±0.6 | NKF calculator ≈69
+GEÇTİ | CKD-EPI 2021 cr, E 40y Kr 0,7 (κ altı) | hesap 119.456 | beklenen 119.45646822701602 ±0.01 | formül dalı min(Scr/κ)
+GEÇTİ | CKD-EPI 2012 cr-cys, E 60y Kr 1,2 CysC 1,2 | hesap 63.013 | beklenen 63.01291161213864 ±0.01 | Nephrology Secrets Bl.3 katsayıları
+GEÇTİ | Cockcroft-Gault E 70y 70kg Kr 1,4 | hesap 48.611 | beklenen 48.6 ±0.1 | (140-70)×70/(72×1,4)
+GEÇTİ | Cockcroft-Gault K ×0,85 | hesap 41.319 | beklenen 41.3 ±0.1 | 0,85 katsayısı
+GEÇTİ | İdeal kilo E 175 cm | hesap 73.000 | beklenen 73 ±0.001 | 50 + 1×(175-152); Oxford Handbook of Dialysis
+GEÇTİ | İdeal kilo K 160 cm | hesap 53.000 | beklenen 53 ±0.001 | 45 + 1×(160-152)
+GEÇTİ | DuBois BSA 70 kg 170 cm | hesap 1.810 | beklenen 1.81 ±0.01 | DuBois 1916
+GEÇTİ | KDIGO G evresi 39 | "G3b" | beklenen "G3b" | KDIGO 2024
+GEÇTİ | KDIGO A evresi 450 | "A3" | beklenen "A3" | KDIGO 2024
+GEÇTİ | KFRE-4 ortalama hasta 2 yıl (NA dışı) | hesap 1.869 | beklenen 1.8688943303462824 ±0.01 | Tangri 2016 baz 0,9832
+GEÇTİ | KFRE-4 E 60y eGFR 25 ACR 500, 5 yıl NA dışı | hesap 40.189 | beklenen 40.2 ±0.1 | elle: lx=2,0585 → 1-0,9365^7,834 = %40,2
+GEÇTİ | KDIGO AKI 1,0→2,1 | 2 | beklenen 2 | KDIGO 2012
+GEÇTİ | KDIGO AKI 0,3 artış/48 sa | 1 | beklenen 1 | KDIGO 2012
+GEÇTİ | KDIGO AKI Kr ≥4 + akut artış | 3 | beklenen 3 | KDIGO 2012
+GEÇTİ | KDIGO AKI idrar evre 3 | 3 | beklenen 3 | KDIGO 2012
+GEÇTİ | FENa | hesap 0.286 | beklenen 0.286 ±0.005 | (20×2)/(140×100)×100
+GEÇTİ | FEÜre | hesap 10.000 | beklenen 10 ±0.01 | (300×2)/(60×100)×100
+GEÇTİ | Düzeltilmiş Ca 8,0 / alb 2,5 | hesap 9.200 | beklenen 9.2 ±0.001 | +0,8×(4-alb)
+GEÇTİ | Na glukoz düzeltmesi, glukoz 300 | hesap 131.200 | beklenen 131.2 ±0.001 | +1,6/100 mg/dL
+GEÇTİ | Na glukoz düzeltmesi, glukoz 600 (>400) | hesap 138.000 | beklenen 138 ±0.001 | +2,0/100 mg/dL
+GEÇTİ | Hesaplanan ozmolalite (BUN) | hesap 290.000 | beklenen 290 ±0.01 | 2Na+glu/18+BUN/2,8
+GEÇTİ | Hesaplanan ozmolalite (üre) | hesap 290.007 | beklenen 290.00667556742326 ±0.01 | üre/2,14 → BUN
+GEÇTİ | Serbest su açığı E 40y 70 kg Na 160 | hesap 6.000 | beklenen 6 ±0.01 | 0,6×70×(160/140-1)
+GEÇTİ | Adrogué-Madias %3 NaCl, Na 115, K 50y 60 kg | hesap 12.839 | beklenen 12.84 ±0.01 | (513-115)/(30+1)
+GEÇTİ | İdrar anyon açığı | hesap -30.000 | beklenen -30 ±0.001 | UNa+UK-UCl
+GEÇTİ | ABG metabolik asidoz, Winter uygun | ["Metabolik asidoz"] | beklenen ["Metabolik asidoz"] | Winter 1,5×12+8=26±2
+GEÇTİ | ABG AG | hesap 24.000 | beklenen 24 ±0.001 | 140-(104+12)
+GEÇTİ | ABG Δ/Δ | hesap 1.167 | beklenen 1.1666666666666667 ±0.001 | (24-10)/(24-12)
+GEÇTİ | ABG met asidoz + solunumsal asidoz | ["Metabolik asidoz","Eşlik eden solunumsal asidoz"] | beklenen ["Metabolik asidoz","Eşlik eden solunumsal asidoz"] | Winter 30,5±2 < 40
+GEÇTİ | ABG albümin düzeltilmiş AG | hesap 20.000 | beklenen 20 ±0.001 | 15 + 2,5×2
+GEÇTİ | ABG akut solunumsal asidoz | ["Akut solunumsal asidoz"] | beklenen ["Akut solunumsal asidoz"] | akut beklenen 26±2
+GEÇTİ | ABG kronik solunumsal asidoz | ["Kronik solunumsal asidoz"] | beklenen ["Kronik solunumsal asidoz"] | kronik 31–32
+GEÇTİ | ABG metabolik alkaloz, kompanzasyon uygun | ["Metabolik alkaloz"] | beklenen ["Metabolik alkaloz"] | 40+0,6–0,75×12 = 47,2–49 (±2)
+GEÇTİ | URR 100→30 | hesap 70.000 | beklenen 70 ±0.001 | KDOQI
+GEÇTİ | spKt/V Daugirdas II | hesap 1.443 | beklenen 1.443 ±0.002 | -ln(0,268)+(2,95×3/70)
+GEÇTİ | eKt/V arteriyel | hesap 1.257 | beklenen 1.25655 ±0.0001 | Daugirdas-Schneditz
+GEÇTİ | stdKt/V eKt/V 1,2 / 240 dk / 3× | hesap 2.161 | beklenen 2.16 ±0.02 | FHN/Leypoldt; KDOQI 2015 hedef ≥2,3
+GEÇTİ | nPCR orta hafta BUN 60 Kt/V 1,4 | hesap 1.054 | beklenen 1.054 ±0.01 | Depner-Daugirdas 1996
+GEÇTİ | Watson E 50y 170 cm 70 kg | hesap 50.191 | beklenen 50.191 ±0.01 | Watson 1980
+GEÇTİ | PD haftalık Kt/V | hesap 2.600 | beklenen 2.6 ±0.001 | ISPD; (D/P×drenaj + U/P×idrar)×7/V
+GEÇTİ | PD haftalık CrCl | hesap 77.000 | beklenen 77 ±0.001 | renal: kreatinin ve üre klirensi ortalaması
+GEÇTİ | PET 0,70 | "Yüksek-ortalama taşıyıcı" | beklenen "Yüksek-ortalama taşıyıcı" | Twardowski 1987
+GEÇTİ | Takrolimus orantısal doz 2×3 mg, hedef 8, ölçülen 12 | hesap 4.000 | beklenen 4 ±0.001 | doğrusal kinetik
+GEÇTİ | Takrolimus CV% | hesap 25.000 | beklenen 25 ±0.01 | SD/ort.
+GEÇTİ | Furosemid eşdeğeri bumetanid 2 mg | hesap 80.000 | beklenen 80 ±0.001 | 1 mg bumetanid = 40 mg oral furosemid
+GEÇTİ | Furosemid eşdeğeri torasemid 20 mg | hesap 80.000 | beklenen 80 ±0.001 | torasemid 10–20 = oral furosemid 40–80
+GEÇTİ | SCORE2 erkek low | hesap 6.314 | beklenen 6.3 ±0.06 | SCORE2 EHJ 2021 Ek Tablo 4
+GEÇTİ | SCORE2 kadın low | hesap 4.332 | beklenen 4.3 ±0.06 | SCORE2 EHJ 2021 Ek Tablo 4
+GEÇTİ | SCORE2 erkek mod | hesap 8.107 | beklenen 8.1 ±0.06 | SCORE2 EHJ 2021 Ek Tablo 4
+GEÇTİ | SCORE2 kadın mod | hesap 5.227 | beklenen 5.2 ±0.06 | SCORE2 EHJ 2021 Ek Tablo 4
+GEÇTİ | SCORE2 erkek high | hesap 8.809 | beklenen 8.8 ±0.06 | SCORE2 EHJ 2021 Ek Tablo 4
+GEÇTİ | SCORE2 kadın high | hesap 7.126 | beklenen 7.1 ±0.06 | SCORE2 EHJ 2021 Ek Tablo 4
+GEÇTİ | SCORE2 erkek vhigh | hesap 15.058 | beklenen 15.1 ±0.06 | SCORE2 EHJ 2021 Ek Tablo 4
+GEÇTİ | SCORE2 kadın vhigh | hesap 14.127 | beklenen 14.1 ±0.06 | SCORE2 EHJ 2021 Ek Tablo 4
+GEÇTİ | SCORE2-OP erkek 75 y düşük bölge | hesap 18.562 | beklenen 18.6 ±0.06 | SCORE2-OP Ek Tablo 3
+GEÇTİ | SCORE2-OP kadın 75 y düşük bölge | hesap 15.158 | beklenen 15.2 ±0.06 | SCORE2-OP Ek Tablo 3
+GEÇTİ | SCORE2-Diabetes erkek low | hesap 8.393 | beklenen 8.4 ±0.06 | SCORE2-Diabetes EHJ 2023 grafik özet
+GEÇTİ | SCORE2-Diabetes kadın low | hesap 6.097 | beklenen 6.1 ±0.06 | SCORE2-Diabetes EHJ 2023 grafik özet
+GEÇTİ | SCORE2-Diabetes erkek high | hesap 12.499 | beklenen 12.5 ±0.06 | SCORE2-Diabetes EHJ 2023 grafik özet
+GEÇTİ | SCORE2-Diabetes kadın high | hesap 11.141 | beklenen 11.1 ±0.06 | SCORE2-Diabetes EHJ 2023 grafik özet
+GEÇTİ | SCORE2-Diabetes erkek vhigh | hesap 20.272 | beklenen 20.3 ±0.06 | SCORE2-Diabetes EHJ 2023 grafik özet
+GEÇTİ | SCORE2-Diabetes kadın vhigh | hesap 20.626 | beklenen 20.6 ±0.06 | SCORE2-Diabetes EHJ 2023 grafik özet
+GEÇTİ | SCORE2-Diabetes erkek düşük, HbA1c 70, eGFR 60, tanı 50 y | hesap 12.884 | beklenen 12.9 ±0.06 | SCORE2-Diabetes grafik özet
+GEÇTİ | Mehran puan (KKY5+yaş4+anemi3+DM3+kontrast2+eGFR4) | 21 | beklenen 21 | Mehran JACC 2004
+GEÇTİ | Mehran ≥16 CIN riski | hesap 57.300 | beklenen 57.3 ±0.001 | Mehran 2004
+GEÇTİ | Mehran 3 puan → düşük grup | 0 | beklenen 0 | 1+2=3 puan
+GEÇTİ | eGFR eğimi 50→42 / 18 ay | hesap -5.333 | beklenen -5.333 ±0.01 | KDIGO hızlı progresyon >5/yıl
+GEÇTİ | TSAT | hesap 20.000 | beklenen 20 ±0.001 | Fe/TDBK×100
+GEÇTİ | Ganzoni 70 kg Hb 8→11 | hesap 1004.000 | beklenen 1004 ±0.001 | 70×3×2,4+500
+GEÇTİ | ERI | hesap 20.000 | beklenen 20 ±0.001 | haftalık U/kg/Hb
+GEÇTİ | 24 sa idrar kreatinin atılımı | hesap 21.429 | beklenen 21.43 ±0.01 | 1500 mg / 70 kg
+GEÇTİ | Ölçülen CrCl | hesap 69.444 | beklenen 69.44 ±0.01 | 100×1500/(1,5×1440)
+GEÇTİ | UF hızı | hesap 10.714 | beklenen 10.71 ±0.01 | 3000/70/4
+GEÇTİ | Resirkülasyon | hesap 14.286 | beklenen 14.29 ±0.01 | (P-A)/(P-V)
+GEÇTİ | EFWC | hesap 0.333 | beklenen 0.333 ±0.001 | V×(1-(UNa+UK)/PNa)
+GEÇTİ | TTKG | hesap 6.444 | beklenen 6.44 ±0.01 | (UK×Posm)/(PK×Uosm)
+
+Toplam: 78 geçti, 0 kaldı
