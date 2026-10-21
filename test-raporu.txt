@@ -76,5 +76,35 @@ GEÇTİ | UF hızı | hesap 10.714 | beklenen 10.71 ±0.01 | 3000/70/4
 GEÇTİ | Resirkülasyon | hesap 14.286 | beklenen 14.29 ±0.01 | (P-A)/(P-V)
 GEÇTİ | EFWC | hesap 0.333 | beklenen 0.333 ±0.001 | V×(1-(UNa+UK)/PNa)
 GEÇTİ | TTKG | hesap 6.444 | beklenen 6.44 ±0.01 | (UK×Posm)/(PK×Uosm)
+GEÇTİ | PREVENT total KVH kadın temel | hesap 0.147 | beklenen 0.147 ±0.0006 | preventr test-estimate_risk.R
+GEÇTİ | PREVENT ASKVH kadın temel | hesap 0.092 | beklenen 0.092 ±0.0006 | preventr
+GEÇTİ | PREVENT KY kadın temel | hesap 0.081 | beklenen 0.081 ±0.0006 | preventr
+GEÇTİ | PREVENT total KVH erkek temel | hesap 0.163 | beklenen 0.163 ±0.0006 | preventr test-estimate_risk.R
+GEÇTİ | PREVENT ASKVH erkek temel | hesap 0.102 | beklenen 0.102 ±0.0006 | preventr
+GEÇTİ | PREVENT KY erkek temel | hesap 0.106 | beklenen 0.106 ±0.0006 | preventr
+GEÇTİ | PREVENT total KVH kadın UACR 92 | hesap 0.181 | beklenen 0.181 ±0.0006 | preventr test-estimate_risk.R
+GEÇTİ | PREVENT ASKVH kadın UACR 92 | hesap 0.111 | beklenen 0.111 ±0.0006 | preventr
+GEÇTİ | PREVENT KY kadın UACR 92 | hesap 0.105 | beklenen 0.105 ±0.0006 | preventr
+GEÇTİ | PREVENT total KVH erkek UACR 92 | hesap 0.195 | beklenen 0.195 ±0.0006 | preventr test-estimate_risk.R
+GEÇTİ | PREVENT ASKVH erkek UACR 92 | hesap 0.123 | beklenen 0.123 ±0.0006 | preventr
+GEÇTİ | PREVENT KY erkek UACR 92 | hesap 0.130 | beklenen 0.13 ±0.0006 | preventr
+GEÇTİ | Thakar puan (K1+KKY1+KOAH1+insülin1+kapak1+Kr 1,2–2,1 için 2) | 7 | beklenen 7 | Thakar JASN 2005
+GEÇTİ | Thakar 6–8 risk | hesap 7.800 | beklenen 7.8 ±0.001 | Thakar 2005
+GEÇTİ | Mayo yıllık büyüme htTKV 600, 40 y | hesap 3.526 | beklenen 3.526 ±0.01 | (600/150)^(1/40)−1
+GEÇTİ | Mayo sınıfı | "1C" | beklenen "1C" | Irazabal 2015
+GEÇTİ | PROPKD erkek + HT<35 + PKD1 truncating | 7 | beklenen 7 | Cornec-Le Gall 2016
+GEÇTİ | QTc Bazett | hesap 447.214 | beklenen 447.2 ±0.1 | QT/√RR
+GEÇTİ | QTc Fridericia | hesap 430.887 | beklenen 430.9 ±0.1 | QT/∛RR
+GEÇTİ | QTc Framingham | hesap 430.800 | beklenen 430.8 ±0.1 | QT+154(1−RR)
+GEÇTİ | QTc Hodges | hesap 426.250 | beklenen 426.25 ±0.01 | QT+1,75(HR−60)
+GEÇTİ | LDL Sampson | hesap 123.397 | beklenen 123.4 ±0.05 | Sampson JAMA Cardiol 2020
+GEÇTİ | LDL Friedewald | hesap 120.000 | beklenen 120 ±0.001 | TK−HDL−TG/5
+GEÇTİ | Steroid prednizolon 40 → metilprednizolon | hesap 32.000 | beklenen 32 ±0.001 | 5:4
+GEÇTİ | CRRT efluent dozu | hesap 32.500 | beklenen 32.5 ±0.001 | (Qd+Qr+UF)/kilo
+GEÇTİ | CRRT steril su (5 L, 140→120) | hesap 833.333 | beklenen 833.3 ±0.1 | 5000×(140−120)/120
+GEÇTİ | FEMg (0,7 katsayısı) | hesap 5.714 | beklenen 5.714 ±0.001 | (UMg×PCr)/(0,7×PMg×UCr)
+GEÇTİ | Serbest su klirensi | hesap 1.000 | beklenen 1 ±0.001 | V×(1−Uosm/Posm)
+GEÇTİ | CHA2DS2-VA 72 y + HT + DM | 3 | beklenen 3 | ESC AF 2024
+GEÇTİ | PLASMIC 6 | 6 | beklenen 6 | Bendapudi 2017
 
-Toplam: 78 geçti, 0 kaldı
+Toplam: 108 geçti, 0 kaldı

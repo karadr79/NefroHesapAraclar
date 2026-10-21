@@ -1,5 +1,5 @@
 /* Nefro Araçlar service worker — önce önbellek, arka planda güncelleme */
-const VER = 'nefro-araclar-v0.2.0';
+const VER = 'nefro-araclar-v0.3.0';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(VER).then(c => c.addAll(SHELL))); });
 self.addEventListener('activate', e => {

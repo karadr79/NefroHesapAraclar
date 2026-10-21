@@ -197,7 +197,7 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
         <div id="drug-groups" class="pills"></div>
         <p id="drug-ctx" class="ctx"></p>
       </div>
-      <div class="box pend"><b>Taslak içerik.</b> Dozlar KÜB/FDA prospektüsü, kılavuzlar ve Nefroloji Kaynaklar eBook'tan derlenmiştir; her ilaç klinik onaydan sonra "Onaylandı" olarak işaretlenecektir. Klinik kararın yerini almaz.</div>
+      <div class="box info"><b>Klinik onaylı içerik (22.10.2026).</b> Dozlar Nefroloji Kaynaklar eBook, KÜB/FDA prospektüsleri ve kılavuzlardan derlenmiştir. Klinik kararın yerini almaz.</div>
       <div id="drug-list"></div>
     </section>
     <section class="tab" id="tab-kaynak" hidden>
@@ -208,8 +208,8 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
       </div>
       <div class="box info"><b>Kullanım koşulu.</b> Bu uygulama eğitim ve hızlı başvuru amaçlıdır; klinik kararın ve kurum protokollerinin yerini almaz. Hasta tanımlayıcı veri toplamaz ve sunucuya veri göndermez.</div>
       <dl class="facts">
-        <dt>Sürüm</dt><dd>0.2.0 · 21 Ekim 2026</dd>
-        <dt>Formül testleri</dt><dd>78 referans olgu, 78 geçti</dd>
+        <dt>Sürüm</dt><dd>0.3.0 · 22 Ekim 2026</dd>
+        <dt>Formül testleri</dt><dd>108 referans olgu, 108 geçti</dd>
         <dt>Onaylı ilaç</dt><dd id="onay-sayi"></dd>
         <dt>Çevrimdışı</dt><dd id="sw-state">Denetleniyor…</dd>
       </dl>
@@ -599,6 +599,93 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
   function efwc(volL, una, uk, sna) { return volL * (1 - (una + uk) / sna); }
   function ttkg(uk, pk, uosm, posm) { return (uk * posm) / (pk * uosm); }
 
+  /* ---------- PREVENT (AHA 2023) 10 yıl — Khan SS, Circulation 2024;149:430. Katsayılar preventr paketinden ---------- */
+  var PREVENT = {"base":{"f":{"total_cvd":[0.793933,0.030524,-0.160686,-0.2394,0.360078,0.86676,0.536074,0.0,0.0,0.604592,0.043377,0.315167,-0.147765,-0.066361,0.119788,-0.081972,0.030677,-0.094635,-0.27057,-0.078715,0.0,-0.163781,-3.307728],"ascvd":[0.719883,0.117697,-0.151185,-0.083536,0.359285,0.834858,0.483108,0.0,0.0,0.486462,0.039778,0.226531,-0.059237,-0.039576,0.084442,-0.056784,0.032569,-0.103598,-0.241754,-0.079114,0.0,-0.167149,-3.819975],"heart_failure":[0.899823,0.0,0.0,-0.455977,0.35765,1.038346,0.583916,-0.007229,0.299771,0.745164,0.055709,0.353444,0.0,-0.098151,0.0,0.0,0.0,-0.094666,-0.358104,-0.115945,-0.003878,-0.188429,-4.310409]},"m":{"total_cvd":[0.768853,0.073617,-0.095443,-0.434735,0.336266,0.769286,0.438687,0.0,0.0,0.537898,0.016483,0.288879,-0.133735,-0.047592,0.150273,-0.051787,0.019117,-0.104948,-0.225195,-0.089507,0.0,-0.15437,-3.031168],"ascvd":[0.709985,0.165866,-0.114429,-0.283721,0.323998,0.71896,0.395697,0.0,0.0,0.369007,0.020362,0.203652,-0.086558,-0.032292,0.114563,-0.03,0.023275,-0.092702,-0.201852,-0.097053,0.0,-0.121708,-3.500655],"heart_failure":[0.897264,0.0,0.0,-0.681147,0.363446,0.923776,0.502374,-0.048584,0.372693,0.692692,0.025183,0.298092,0.0,-0.049773,0.0,0.0,0.0,-0.12892,-0.304092,-0.140169,0.006813,-0.179778,-3.946391]}},"uacr":{"f":{"total_cvd":[0.796925,0.025663,-0.158811,-0.22557,0.339665,0.804751,0.528534,0.0,0.0,0.480351,0.043447,0.298521,-0.149779,-0.074289,0.106756,-0.077813,0.030677,-0.090717,-0.270512,-0.083056,0.0,-0.138925,0.179304,0.013207,-3.738341],"ascvd":[0.7202,0.113577,-0.149351,-0.072668,0.343626,0.777309,0.474666,0.0,0.0,0.382465,0.039418,0.212518,-0.060305,-0.046605,0.073312,-0.053426,0.032569,-0.099989,-0.241176,-0.082694,0.0,-0.144474,0.150122,0.005026,-4.174614],"heart_failure":[0.914597,0.0,0.0,-0.444135,0.326032,0.961136,0.575579,0.000883,0.298896,0.591529,0.055682,0.33141,0.0,-0.10786,0.0,0.0,0.0,-0.087523,-0.356859,-0.122025,-0.005364,-0.161039,0.219728,0.032667,-4.841506]},"m":{"total_cvd":[0.776865,0.065995,-0.095111,-0.420667,0.312015,0.698521,0.431467,0.0,0.0,0.384136,0.009384,0.267649,-0.139097,-0.057931,0.138372,-0.048833,0.020041,-0.102454,-0.223635,-0.089485,0.0,-0.132185,0.188797,0.091698,-3.510705],"ascvd":[0.714172,0.160219,-0.113909,-0.271946,0.305872,0.660063,0.388402,0.0,0.0,0.246632,0.015185,0.186167,-0.08944,-0.041188,0.105821,-0.028089,0.024043,-0.091232,-0.200489,-0.096936,0.0,-0.102287,0.151007,0.0556,-3.85146],"heart_failure":[0.91118,0.0,0.0,-0.669365,0.329008,0.837766,0.497892,-0.042749,0.362416,0.50758,0.013772,0.273996,0.0,-0.064571,0.0,0.0,0.0,-0.123004,-0.30133,-0.141032,0.002153,-0.154802,0.23063,0.147219,-4.556907]}}};
+  // o: age 30–79, female, tc, hdl (mg/dL), sbp, dm, smoker, bmi, egfr, bpTx, statin, [uacr mg/g]
+  function prevent(o) {
+    var a = (o.age - 55) / 10, nh = (o.tc - o.hdl) * 0.02586 - 3.5, hd = (o.hdl * 0.02586 - 1.3) / 0.3;
+    var sl = (min(o.sbp, 110) - 110) / 20, sg = (max(o.sbp, 110) - 130) / 20;
+    var bl = (min(o.bmi, 30) - 25) / 5, bg = (max(o.bmi, 30) - 30) / 5;
+    var el = (min(o.egfr, 60) - 60) / -15, eg = (max(o.egfr, 60) - 90) / -15;
+    var dm = o.dm ? 1 : 0, sm = o.smoker ? 1 : 0, bp = o.bpTx ? 1 : 0, st = o.statin ? 1 : 0;
+    var x = [a, nh, hd, sl, sg, dm, sm, bl, bg, el, eg, bp, st, bp * sg, st * nh, a * nh, a * hd, a * sg, a * dm, a * sm, a * bg, a * el];
+    var useU = o.uacr != null && o.uacr > 0, mdl = PREVENT[useU ? 'uacr' : 'base'][o.female ? 'f' : 'm'];
+    if (useU) x = x.concat([ln(o.uacr), 0]);
+    x.push(1);
+    var out = {};
+    Object.keys(mdl).forEach(function (k) { var b = mdl[k], lo = 0; for (var i = 0; i < b.length; i++) lo += b[i] * x[i]; out[k] = ex(lo) / (1 + ex(lo)); });
+    out.model = useU ? 'PREVENT + UACR' : 'PREVENT temel';
+    return out;
+  }
+
+  /* ---------- Fraksiyonel atılım ve su klirensi ---------- */
+  function fe(ux, px, ucr, pcr, plasmaFactor) { return (ux * pcr) / ((plasmaFactor || 1) * px * ucr) * 100; }
+  function freeWaterCl(volL, uosm, posm) { return volL * (1 - uosm / posm); }
+  function urineOsmGap(uosmMeas, una, uk, uureaMgDl, uglu) { return uosmMeas - (2 * (una + uk) + uureaMgDl / 6 + (uglu || 0) / 18); }
+
+  /* ---------- CRRT ---------- */
+  function filtFraction(qbMlMin, hct, ufTotMlH, preMlH) { var qp = qbMlMin * 60 * (1 - hct / 100); return ufTotMlH / (qp + (preMlH || 0)) * 100; }
+  function crrtDose(qdMlH, qrMlH, netUfMlH, wt) { return (qdMlH + qrMlH + netUfMlH) / wt; }
+  // Hiponatremide replasman torbasına eklenecek steril su (mL): bag × (bagNa − hedef) / hedef
+  function crrtWater(bagMl, bagNa, target) { return bagMl * (bagNa - target) / target; }
+
+  /* ---------- Risk skorları ---------- */
+  // Thakar (JASN 2005;16:162)
+  function thakar(o) {
+    var s = 0;
+    if (o.female) s += 1; if (o.chf) s += 1; if (o.lvef35) s += 1; if (o.iabp) s += 2; if (o.copd) s += 1;
+    if (o.insulin) s += 1; if (o.redo) s += 1; if (o.emerg) s += 2;
+    s += { cabg: 0, valve: 1, combo: 2, other: 2 }[o.surg || 'cabg'];
+    if (o.cr >= 2.1) s += 5; else if (o.cr >= 1.2) s += 2;
+    var g = s <= 2 ? 0 : s <= 5 ? 1 : s <= 8 ? 2 : 3;
+    return { score: s, grp: g, risk: [0.4, 1.8, 7.8, 21.5][g] };
+  }
+  // PROPKD (Cornec-Le Gall, JASN 2016)
+  function propkd(o) {
+    var s = (o.male ? 1 : 0) + (o.ht35 ? 2 : 0) + (o.uro35 ? 2 : 0) + ({ pkd2: 0, nt: 2, tr: 4, unk: 0 }[o.mut || 'unk']);
+    return { score: s, grp: s <= 3 ? 'Düşük risk (ESKD medyan yaşı ≈70)' : s <= 6 ? 'Orta risk (≈56)' : 'Yüksek risk (≈49)' };
+  }
+  // Mayo görüntüleme sınıflaması (Irazabal, JASN 2015): yıllık büyüme = (htTKV/150)^(1/yaş) − 1
+  function mayoClass(httkv, age) {
+    var g = (pow(httkv / 150, 1 / age) - 1) * 100;
+    var c = g < 1.5 ? '1A' : g < 3 ? '1B' : g < 4.5 ? '1C' : g < 6 ? '1D' : '1E';
+    return { growth: g, cls: c };
+  }
+  // PLASMIC (Bendapudi, Lancet Haematol 2017)
+  function plasmic(o) {
+    var s = (o.plt30 ? 1 : 0) + (o.hemo ? 1 : 0) + (o.noCancer ? 1 : 0) + (o.noTx ? 1 : 0) + (o.mcv90 ? 1 : 0) + (o.inr15 ? 1 : 0) + (o.cr2 ? 1 : 0);
+    return { score: s, grp: s <= 4 ? 'Düşük (ADAMTS13 <%10 olasılığı %0–4)' : s === 5 ? 'Orta (%5–20)' : 'Yüksek (%62–82)' };
+  }
+  function cha2ds2va(o) { // ESC 2024: cinsiyet çıkarıldı
+    return (o.chf ? 1 : 0) + (o.ht ? 1 : 0) + (o.age >= 75 ? 2 : o.age >= 65 ? 1 : 0) + (o.dm ? 1 : 0) + (o.stroke ? 2 : 0) + (o.vasc ? 1 : 0);
+  }
+  function hasbled(o) {
+    return ['ht', 'renal', 'liver', 'stroke', 'bleed', 'inr', 'elderly', 'drugs', 'alcohol'].reduce(function (t, k) { return t + (o[k] ? 1 : 0); }, 0);
+  }
+  function rcri(o) { return ['surg', 'ihd', 'hf', 'cvd', 'insulin', 'cr2'].reduce(function (t, k) { return t + (o[k] ? 1 : 0); }, 0); }
+  function h2fpef(o) { return (o.bmi30 ? 2 : 0) + (o.af ? 3 : 0) + (o.ht2 ? 1 : 0) + (o.age60 ? 1 : 0) + (o.ee9 ? 1 : 0) + (o.pasp35 ? 1 : 0); }
+  // Sampson/NIH LDL (JAMA Cardiol 2020)
+  function ldlSampson(tc, hdl, tg) { var nh = tc - hdl; return tc / 0.948 - hdl / 0.971 - (tg / 8.56 + tg * nh / 2140 - tg * tg / 16100) - 9.44; }
+  function ldlFriedewald(tc, hdl, tg) { return tc - hdl - tg / 5; }
+  function qtc(qt, hr) {
+    var rr = 60 / hr;
+    return { bazett: qt / Math.sqrt(rr), fridericia: qt / Math.cbrt(rr), framingham: qt + 154 * (1 - rr), hodges: qt + 1.75 * (hr - 60) };
+  }
+  function mapPP(sbp, dbp) { return { map: dbp + (sbp - dbp) / 3, pp: sbp - dbp }; }
+  // Mayo MGUS risk (Rajkumar, Blood 2005)
+  function mgrs(o) { var n = (o.m15 ? 1 : 0) + (o.nonIgG ? 1 : 0) + (o.flc ? 1 : 0); return { n: n, risk20: [5, 21, 37, 58][n] }; }
+  // AHA 2023 KBM evresi (basitleştirilmiş)
+  function ckmStage(o) {
+    if (o.cvd) return 4;
+    if (o.subclin || o.highRisk) return 3;
+    if (o.met || o.ckdMod) return 2;
+    if (o.excessAdip) return 1;
+    return 0;
+  }
+  var STEROID = { hidrokortizon: 20, kortizon: 25, prednizolon: 5, prednizon: 5, metilprednizolon: 4, triamsinolon: 4, deflazakort: 6, deksametazon: 0.75, betametazon: 0.6 };
+  function steroidConv(drug, mg, to) { return mg / STEROID[drug] * STEROID[to]; }
+  function bmi(w, h) { return w / pow(h / 100, 2); }
+
   var api = {
     r: r, toBUN: toBUN, UREA_BUN: UREA_BUN,
     ckdepi2021cr: ckdepi2021cr, ckdepi2021crcys: ckdepi2021crcys, ckdepi2012cys: ckdepi2012cys,
@@ -610,7 +697,10 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
     abg: abg, urr: urr, spKtV: spKtV, eKtV: eKtV, stdKtV: stdKtV, nPCR: nPCR, watson: watson,
     pdAdequacy: pdAdequacy, petClass: petClass, propDose: propDose, cv: cv, furoEq: furoEq,
     mehran: mehran, egfrSlope: egfrSlope, score2: score2, score2dm: score2dm, score2ckd: score2ckd, score2Class: score2Class, hba1cMmol: hba1cMmol,
-    tsat: tsat, ganzoni: ganzoni, eri: eri, urine24: urine24, ufr: ufr, recirc: recirc, efwc: efwc, ttkg: ttkg
+    tsat: tsat, ganzoni: ganzoni, eri: eri, urine24: urine24, ufr: ufr, recirc: recirc, efwc: efwc, ttkg: ttkg,
+    prevent: prevent, fe: fe, freeWaterCl: freeWaterCl, urineOsmGap: urineOsmGap, crrtDose: crrtDose, filtFraction: filtFraction, crrtWater: crrtWater,
+    thakar: thakar, propkd: propkd, mayoClass: mayoClass, plasmic: plasmic, cha2ds2va: cha2ds2va, hasbled: hasbled, rcri: rcri, h2fpef: h2fpef,
+    ldlSampson: ldlSampson, ldlFriedewald: ldlFriedewald, qtc: qtc, mapPP: mapPP, mgrs: mgrs, ckmStage: ckmStage, STEROID: STEROID, steroidConv: steroidConv, bmi: bmi
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.NC = api;
 })(this);
@@ -618,7 +708,7 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
 </script>
 <script>
 /* Böbrek fonksiyonuna göre doz rehberi — sürüm 0.1 (taslak).
-   Her kayıt klinik onay bekler (onay:false). Bant: [alt (dahil), üst (hariç), metin].
+   Tüm kayıtlar 22.10.2026 tarihinde klinik onay aldı (sürüm 0.3.0). Bant: [alt (dahil), üst (hariç), metin].
    temel: 'CrCl' = Cockcroft-Gault mL/dk; 'eGFR' = CKD-EPI mL/dk/1,73 m².
    CRRT dozları CVVHDF efluent 20–25 mL/kg/sa varsayımıyla. Yükleme dozu böbrek fonksiyonundan bağımsızdır. */
 (function (root) {
@@ -817,6 +907,7 @@ var ILAC = [
   hd:'10–20 mg/gün, HD sonrası', ekDoz:'Doz HD sonrası', pd:'10 mg/gün', crrt:'—',
   not:'Yaşlıda konfüzyon, deliryum.', kaynak:'FDA prospektüsü (Pepcid)' }
 ];
+ILAC.forEach(function (d) { if (d.onay == null) d.onay = '22.10.2026'; });
 if (typeof module !== 'undefined' && module.exports) module.exports = ILAC; else root.ILAC = ILAC;
 })(this);
 
@@ -946,7 +1037,7 @@ card('hesap', 'c-egfr', 'eGFR ve kreatinin klirensi', 'CKD-EPI 2021 · Cockcroft
     var html = rows(out), r2 = [];
     if (v.wt && v.ht) {
       var bsa = C.bsaDuBois(v.wt, v.ht), ib = C.ibw(v.ht, fem), aj = C.adjbw(v.wt, v.ht, fem), sel = C.cgWeight(v.wt, v.ht, fem);
-      r2.push(res('BSA (DuBois)', f(bsa, 2), 'm²'));
+      r2.push(res('BSA (DuBois)', f(bsa, 2), 'm²', '', 'VKİ ' + f(C.bmi(v.wt, v.ht), 1) + ' kg/m²'));
       r2.push(res('Endekslenmemiş eGFR', f(C.deindex(v.cys ? C.ckdepi2021crcys(v.cr, v.cys, v.age, fem) : e, bsa), 0), 'mL/dk', '', 'İlaç dozu için eGFR × BSA/1,73'));
       r2.push(res('CrCl, önerilen kilo', f(C.cockcroftGault(v.age, sel.w, v.cr, fem), 0), 'mL/dk', 'accent', sel.kind + ' kilo ' + f(sel.w, 0) + ' kg'));
       html += rows(r2);
@@ -1108,6 +1199,59 @@ card('hesap', 'c-mkb', 'KBH-MKB', 'Düzeltilmiş Ca · Ca×P · PTH hedefi',
     if (v.pth != null && v.st === '5d' && v.uln) { var x = v.pth / v.uln; out.push(res('iPTH / üst sınır', f(x, 1) + ' kat', '', x > 9 || x < 2 ? 'warn' : 'ok', 'KDIGO hedefi 2–9 kat: ' + f(2 * v.uln, 0) + '–' + f(9 * v.uln, 0) + ' pg/mL')); }
     else if (v.pth != null) out.push(res('iPTH', f(v.pth, 0), 'pg/mL', '', 'G3–G4: yükselme eğiliminde tedavi (KDOQI G3 35–70, G4 70–110)'));
     return out.length ? rows(out) : NEED;
+  });
+
+card('hesap', 'c-fe', 'Fraksiyonel atılım ve su klirensi', 'FENa · FEK · FEMg · FEPO₄ · FEÜA · serbest su · idrar ozmolal açığı',
+  [{ k: 'pcr', l: 'Serum kreatinin', u: 'mg/dL', p: 'cr' }, { k: 'ucr', l: 'İdrar kreatinin', u: 'mg/dL', d: 80 },
+   { k: 'pmg', l: 'Serum Mg', u: 'mg/dL', ph: 'ops.' }, { k: 'umg', l: 'İdrar Mg', u: 'mg/dL', ph: 'ops.' },
+   { k: 'pp', l: 'Serum fosfor', u: 'mg/dL', ph: 'ops.' }, { k: 'up', l: 'İdrar fosfor', u: 'mg/dL', ph: 'ops.' },
+   { k: 'pua', l: 'Serum ürik asit', u: 'mg/dL', ph: 'ops.' }, { k: 'uua', l: 'İdrar ürik asit', u: 'mg/dL', ph: 'ops.' },
+   { k: 'pk', l: 'Serum K', u: 'mmol/L', ph: 'ops.' }, { k: 'uk', l: 'İdrar K', u: 'mmol/L', ph: 'ops.' },
+   { k: 'vol', l: 'İdrar hacmi', u: 'L/gün', ph: 'ops.' }, { k: 'uosm', l: 'İdrar ozmolalite', u: 'mOsm/kg', ph: 'ops.' }, { k: 'posm', l: 'Serum ozmolalite', u: 'mOsm/kg', ph: 'ops.' },
+   { k: 'una', l: 'İdrar Na', u: 'mmol/L', ph: 'ops.' }, { k: 'uurea', l: 'İdrar üre', u: 'mg/dL', ph: 'ops.' }],
+  function (v) {
+    if (!need(v, ['pcr', 'ucr'])) return NEED;
+    var out = [];
+    if (need(v, ['pmg', 'umg'])) { var m = C.fe(v.umg, v.pmg, v.ucr, v.pcr, 0.7); out.push(res('FEMg', '%' + f(m, 1), '', m > 2 ? 'warn' : 'ok', 'Hipomagnezemide >%2–4 renal kayıp; <%2 GİS kaybı (serum Mg × 0,7)')); }
+    if (need(v, ['pp', 'up'])) { var p = C.fe(v.up, v.pp, v.ucr, v.pcr); out.push(res('FEPO₄', '%' + f(p, 1), '', p > 5 ? 'warn' : 'ok', 'Hipofosfatemide >%5 (TRP <%86–95) renal kayıp · TRP %' + f(100 - p, 0))); }
+    if (need(v, ['pua', 'uua'])) { var u = C.fe(v.uua, v.pua, v.ucr, v.pcr); out.push(res('FEÜA', '%' + f(u, 1), '', u > 12 ? 'warn' : 'ok', 'Hiponatremide >%10–12: SIAD (Na düzelince normale döner) veya serebral tuz kaybı (düzeldikten sonra da yüksek kalır)')); }
+    if (need(v, ['pk', 'uk'])) { var k = C.fe(v.uk, v.pk, v.ucr, v.pcr); out.push(res('FEK', '%' + f(k, 1), '', '', 'Hiperkalemide düşük FEK renal atılım bozukluğu lehine')); }
+    if (need(v, ['vol', 'uosm', 'posm'])) { var cw = C.freeWaterCl(v.vol, v.uosm, v.posm); out.push(res('Serbest su klirensi', f(cw, 2), 'L/gün', '', cw > 0 ? 'Seyreltik idrar: su atılıyor' : 'Konsantre idrar: su tutuluyor')); }
+    if (need(v, ['uosm', 'una', 'uk', 'uurea'])) { var og = C.urineOsmGap(v.uosm, v.una, v.uk, v.uurea); out.push(res('İdrar ozmolal açığı', f(og, 0), 'mOsm/kg', og < 150 ? 'warn' : 'ok', 'NH₄⁺ ≈ ' + f(og / 2, 0) + ' mmol/L · <150: RTA lehine; >150–400: ishal lehine')); }
+    return out.length ? rows(out) : '<p class="hint">FENa ve FEÜre için AKI kartını kullanın. Burada en az bir madde çifti girin.</p>';
+  });
+
+card('hesap', 'c-crrt', 'CRRT', 'Efluent dozu · hiponatremide replasman ayarı',
+  [{ k: 'wt', l: 'Kilo', u: 'kg', p: 'wt' }, { k: 'qd', l: 'Diyalizat (Qd)', u: 'mL/sa', d: 1500 }, { k: 'qr', l: 'Replasman (Qr)', u: 'mL/sa', d: 1000 },
+   { k: 'uf', l: 'Net UF', u: 'mL/sa', d: 100 }, { k: 'down', l: 'Beklenen kesinti', u: 'sa/gün', d: 4 },
+   { k: 'qb', l: 'Kan akımı (Qb)', u: 'mL/dk', d: 150 }, { k: 'hct', l: 'Hematokrit', u: '%', d: 30 }, { k: 'pre', l: 'Prefiltre replasman', u: 'mL/sa', d: 0 },
+   { k: 'tca', l: 'Sistemik total Ca', u: 'mmol/L', ph: 'sitrat' }, { k: 'ica', l: 'Sistemik iyonize Ca', u: 'mmol/L', ph: 'sitrat' },
+   { k: 'sna', l: 'Serum Na', u: 'mmol/L', ph: 'hiponatremi' }, { k: 'bag', l: 'Torba hacmi', u: 'mL', d: 5000 }, { k: 'bagna', l: 'Torba Na', u: 'mmol/L', d: 140 }],
+  function (v) {
+    if (!need(v, ['wt', 'qd', 'qr'])) return NEED;
+    var d = C.crrtDose(v.qd, v.qr, v.uf || 0, v.wt), del = d * (24 - (v.down || 0)) / 24;
+    var h = rows([res('Reçete edilen doz', f(d, 1), 'mL/kg/sa', d >= 25 ? 'ok' : 'warn', 'Kesintiler için 25–30 reçete edin'),
+      res('Tahmini verilen doz', f(del, 1), 'mL/kg/sa', del >= 20 ? 'ok' : 'crit', 'KDIGO hedefi 20–25 mL/kg/sa')]);
+    var ex2 = [];
+    if (need(v, ['qb', 'hct'])) { var ffv = C.filtFraction(v.qb, v.hct, v.qr + (v.uf || 0), v.pre); ex2.push(res('Filtrasyon fraksiyonu', '%' + f(ffv, 0), '', ffv > 25 ? 'crit' : ffv > 20 ? 'warn' : 'ok', '(Replasman + net UF) / (Qp + prefiltre replasman) · hedef <%20–25')); }
+    if (need(v, ['tca', 'ica'])) { var cr = v.tca / v.ica; ex2.push(res('Total / iyonize Ca', f(cr, 2), '', cr > 2.5 ? 'crit' : 'ok', cr > 2.5 ? 'Sitrat birikimi (toksisite)' : '>2,5 sitrat birikimi')); }
+    if (ex2.length) h += rows(ex2);
+    if (need(v, ['sna', 'bag', 'bagna']) && v.sna < 130) {
+      var tgt = Math.min(v.sna + 8, v.bagna), w = C.crrtWater(v.bag, v.bagna, tgt);
+      h += rows([res('Hedef sıvı Na', f(tgt, 0), 'mmol/L', 'accent', 'Serum Na + 8 (24 saat sınırı)'), res('Torbaya eklenecek steril su', f(w, 0), 'mL', 'accent', f(v.bag, 0) + ' mL torbaya; Na her 6 saatte kontrol')]);
+    }
+    return h + '<p class="hint">Efluent dozu = (Qd + Qr + net UF) / kilo. Kesinti saatleri verilen dozu düşürür.</p>';
+  });
+
+card('hesap', 'c-unit', 'Birim dönüştürücü', 'Geleneksel birim ↔ SI',
+  [{ k: 'what', l: 'Parametre', t: 'sel', w: 1, d: 'cr', o: [['cr', 'Kreatinin mg/dL ↔ µmol/L'], ['urea', 'Üre mg/dL ↔ mmol/L'], ['bun', 'BUN mg/dL ↔ üre mmol/L'], ['ca', 'Kalsiyum mg/dL ↔ mmol/L'], ['p', 'Fosfor mg/dL ↔ mmol/L'], ['mg', 'Magnezyum mg/dL ↔ mmol/L'], ['glu', 'Glukoz mg/dL ↔ mmol/L'], ['chol', 'Kolesterol mg/dL ↔ mmol/L'], ['tg', 'Trigliserid mg/dL ↔ mmol/L'], ['ua', 'Ürik asit mg/dL ↔ µmol/L'], ['alb', 'Albümin g/dL ↔ g/L'], ['hb', 'Hb g/dL ↔ g/L'], ['pth', 'PTH pg/mL ↔ pmol/L'], ['acr', 'ACR mg/g ↔ mg/mmol'], ['a1c', 'HbA1c % ↔ mmol/mol']] },
+   { k: 'val', l: 'Değer (geleneksel)', d: 1.8 }],
+  function (v) {
+    var F = { cr: [88.4, 'µmol/L'], urea: [1 / 6.006, 'mmol/L'], bun: [1 / 2.8, 'mmol/L üre'], ca: [0.2495, 'mmol/L'], p: [0.3229, 'mmol/L'], mg: [0.4114, 'mmol/L'], glu: [0.0555, 'mmol/L'], chol: [0.02586, 'mmol/L'], tg: [0.01129, 'mmol/L'], ua: [59.48, 'µmol/L'], alb: [10, 'g/L'], hb: [10, 'g/L'], pth: [0.106, 'pmol/L'], acr: [0.113, 'mg/mmol'] };
+    if (v.val == null) return NEED;
+    if (v.what === 'a1c') return rows([res('HbA1c', f(C.hba1cMmol(v.val), 0), 'mmol/mol', 'accent', '(% − 2,15) × 10,929')]);
+    var c = F[v.what];
+    return rows([res('SI karşılığı', f(v.val * c[0], c[0] > 5 ? 0 : 2), c[1], 'accent', 'Katsayı × ' + String(+c[0].toFixed(4)).replace('.', ','))]);
   });
 
 /* =================== ELEKTROLİT =================== */
@@ -1352,6 +1496,100 @@ card('modul', 'c-score2', 'Kardiyovasküler risk (SCORE2)', 'SCORE2 · SCORE2-OP
     return h;
   });
 
+card('modul', 'c-prevent', 'Kardiyovasküler risk (PREVENT)', 'AHA 2023 · eGFR ve UACR içeren 10 yıllık risk',
+  [{ k: 'age', l: 'Yaş', u: '30–79', p: 'age' }, sexSel, { k: 'tc', l: 'Total kolesterol', u: 'mg/dL', d: 210 }, { k: 'hdl', l: 'HDL', u: 'mg/dL', d: 42 },
+   { k: 'sbp', l: 'Sistolik KB', u: 'mmHg', d: 145 }, { k: 'bmi', l: 'VKİ', u: 'kg/m²', d: 28 }, { k: 'egfr', l: 'eGFR', u: 'mL/dk/1,73 m²', ph: 'hastadan' },
+   { k: 'uacr', l: 'İdrar ACR', u: 'mg/g', ph: 'ops.' }, { k: 'dm', l: 'Diyabet', t: 'chk' }, { k: 'smk', l: 'Sigara', t: 'chk' },
+   { k: 'bptx', l: 'Antihipertansif kullanıyor', t: 'chk', d: true }, { k: 'stat', l: 'Statin kullanıyor', t: 'chk' }],
+  function (v) {
+    var egfr = v.egfr != null ? v.egfr : kidney().egfrBest;
+    if (!need(v, ['age', 'tc', 'hdl', 'sbp', 'bmi']) || egfr == null) return NEED;
+    if (v.age < 30 || v.age > 79) return '<p class="warn">PREVENT 30–79 yaş için geçerlidir.</p>';
+    var r = C.prevent({ age: v.age, female: v.sex === 'K', tc: v.tc, hdl: v.hdl, sbp: v.sbp, dm: v.dm, smoker: v.smk, bmi: v.bmi, egfr: egfr, bpTx: v.bptx, statin: v.stat, uacr: v.uacr });
+    var t = function (p) { return p >= 0.2 ? 'crit' : p >= 0.075 ? 'warn' : 'ok'; };
+    return rows([res('Total KVH (10 yıl)', '%' + f(r.total_cvd * 100, 1), '', t(r.total_cvd), r.model),
+      res('ASKVH', '%' + f(r.ascvd * 100, 1), '', t(r.ascvd), '<%5 düşük · 5–7,4 sınırda · 7,5–19,9 orta · ≥20 yüksek'),
+      res('Kalp yetmezliği', '%' + f(r.heart_failure * 100, 1), '', t(r.heart_failure))]) +
+      '<p class="hint">Irk içermez; eGFR doğrudan modelde. UACR girilirse UACR modeli kullanılır. ABD kohortlarında geliştirildi; Avrupa için SCORE2 önerilir.</p>';
+  });
+
+card('modul', 'c-ckm', 'Kardiyovasküler-böbrek-metabolik (KBM) evresi', 'AHA 2023 evre 0–4',
+  [{ k: 'adip', l: 'Fazla/disfonksiyonel yağlanma (VKİ ≥25, bel çevresi yüksek, prediyabet)', t: 'chk', w: 1 },
+   { k: 'met', l: 'Metabolik risk faktörü (hipertrigliseridemi, HT, metabolik sendrom, diyabet)', t: 'chk', w: 1 },
+   { k: 'ckd', l: 'Orta-yüksek riskli KBH (KDIGO ısı haritasına göre)', t: 'chk', w: 1, d: true },
+   { k: 'sub', l: 'Subklinik ASKVH veya KY (KAC skoru, NT-proBNP, EKO bulgusu)', t: 'chk', w: 1 },
+   { k: 'hr', l: 'Çok yüksek riskli KBH (G4–G5) veya yüksek PREVENT riski', t: 'chk', w: 1 },
+   { k: 'cvd', l: 'Klinik KVH (KAH, KY, inme, PAH, AF)', t: 'chk', w: 1 }],
+  function (v) {
+    var s = C.ckmStage({ excessAdip: v.adip, met: v.met, ckdMod: v.ckd, subclin: v.sub, highRisk: v.hr, cvd: v.cvd });
+    var d = ['KBM risk faktörü yok', 'Fazla veya disfonksiyonel yağlanma', 'Metabolik risk faktörleri veya KBH', 'Subklinik KVH (veya risk eşdeğeri)', 'Klinik KVH'];
+    return rows([res('KBM evresi', 'Evre ' + s, '', ['ok', 'ok', 'warn', 'crit', 'crit'][s], d[s])]) + '<p class="hint">Ndumele CE, Circulation 2023. Evre 2 ve üzerinde SGLT2i, GLP-1 RA ve finerenon (uygun hastada) kardiyorenal korumada değerlendirilir.</p>';
+  });
+
+card('modul', 'c-thakar', 'Kardiyak cerrahi sonrası diyaliz riski (Thakar)', 'Diyaliz gerektiren AKI',
+  [sexSel, { k: 'chf', l: 'KKY', t: 'chk' }, { k: 'lvef', l: 'LVEF <%35', t: 'chk' }, { k: 'iabp', l: 'Preop IABP', t: 'chk' }, { k: 'copd', l: 'KOAH', t: 'chk' },
+   { k: 'ins', l: 'İnsülin kullanan DM', t: 'chk' }, { k: 'redo', l: 'Önceki kardiyak cerrahi', t: 'chk' }, { k: 'em', l: 'Acil cerrahi', t: 'chk' },
+   { k: 'surg', l: 'Cerrahi', t: 'sel', o: [['cabg', 'Yalnız KABG'], ['valve', 'Yalnız kapak'], ['combo', 'KABG + kapak'], ['other', 'Diğer kardiyak']], d: 'cabg' },
+   { k: 'cr', l: 'Preop kreatinin', u: 'mg/dL', p: 'cr' }],
+  function (v) {
+    if (v.cr == null) return NEED;
+    var t = C.thakar({ female: v.sex === 'K', chf: v.chf, lvef35: v.lvef, iabp: v.iabp, copd: v.copd, insulin: v.ins, redo: v.redo, emerg: v.em, surg: v.surg, cr: v.cr });
+    return rows([res('Thakar puanı', t.score, '/17', ['ok', 'warn', 'crit', 'crit'][t.grp], ['0–2', '3–5', '6–8', '9–13'][t.grp] + ' puan grubu'),
+      res('Diyaliz gerektiren AKI', '%' + f(t.risk, 1), '', ['ok', 'warn', 'crit', 'crit'][t.grp])]) + '<p class="hint">Thakar CV, J Am Soc Nephrol 2005;16:162-8 (özgün puanlama). Kreatinin 1,2–2,1: 2 puan; ≥2,1: 5 puan.</p>';
+  });
+
+card('modul', 'c-adpkd', 'ADPKD risk sınıflaması', 'Mayo görüntüleme sınıfı · PROPKD',
+  [{ k: 'tkv', l: 'Total böbrek hacmi (TKV)', u: 'mL' }, { k: 'ht', l: 'Boy', u: 'cm', p: 'ht' }, { k: 'age', l: 'Yaş', u: 'yıl', p: 'age' },
+   { k: 'typ', l: 'Görüntüleme tipi', t: 'sel', o: [['1', 'Tipik (sınıf 1)'], ['2', 'Atipik (sınıf 2)']], d: '1' },
+   { k: 'male', l: 'Erkek', t: 'chk' }, { k: 'ht35', l: '35 yaş öncesi hipertansiyon', t: 'chk' }, { k: 'uro', l: '35 yaş öncesi ürolojik olay (hematüri, kist enfeksiyonu, ağrı)', t: 'chk', w: 1 },
+   { k: 'mut', l: 'Mutasyon', t: 'sel', o: [['unk', 'Bilinmiyor'], ['pkd2', 'PKD2'], ['nt', 'PKD1 kesmeyen'], ['tr', 'PKD1 kesen (truncating)']], d: 'unk' }],
+  function (v) {
+    var h = '';
+    if (v.typ === '2') h += box('info', '', '<p>Atipik görüntülemede (sınıf 2) Mayo büyüme sınıflaması uygulanmaz; progresyon riski genellikle düşüktür.</p>');
+    else if (need(v, ['tkv', 'ht', 'age'])) {
+      var ht = v.tkv / (v.ht / 100), m = C.mayoClass(ht, v.age), hi = ['1C', '1D', '1E'].indexOf(m.cls) >= 0;
+      h += rows([res('htTKV', f(ht, 0), 'mL/m'), res('Mayo sınıfı', m.cls, '', hi ? 'crit' : 'ok', 'Tahmini yıllık büyüme %' + f(m.growth, 1) + (hi ? ' · hızlı progresyon, tolvaptan adayı' : ''))]);
+    }
+    var p = C.propkd({ male: v.male, ht35: v.ht35, uro35: v.uro, mut: v.mut });
+    h += rows([res('PROPKD', p.score, '/9', p.score >= 7 ? 'crit' : p.score >= 4 ? 'warn' : 'ok', p.grp + (v.mut === 'unk' ? ' · mutasyon bilinmeden eksik' : ''))]);
+    h += box('info', 'Tolvaptan', '<p>18–55 yaş, eGFR ≥25 ve hızlı ilerleyen ADPKD: Mayo 1C–1E, PROPKD >6 veya yıllık eGFR kaybı >2,5–3 mL/dk.</p>');
+    return h + '<p class="hint">Mayo sınıfları: 1A <%1,5 · 1B %1,5–3 · 1C %3–4,5 · 1D %4,5–6 · 1E >%6 yıllık htTKV artışı (Irazabal, JASN 2015). PROPKD (Cornec-Le Gall, JASN 2016): 0–3 düşük, 4–6 orta, 7–9 yüksek risk.</p>';
+  });
+
+card('modul', 'c-cardio', 'AF ve perioperatif risk', 'CHA₂DS₂-VA · HAS-BLED · RCRI',
+  [{ k: 'age', l: 'Yaş', u: 'yıl', p: 'age' }, { k: 'chf', l: 'KY / LV disfonksiyonu', t: 'chk' }, { k: 'ht', l: 'Hipertansiyon', t: 'chk', d: true }, { k: 'dm', l: 'Diyabet', t: 'chk' },
+   { k: 'str', l: 'İnme / TİA / emboli', t: 'chk' }, { k: 'vasc', l: 'Vasküler hastalık (MI, PAH, plak)', t: 'chk' },
+   { k: 'renal', l: 'Böbrek hastalığı (diyaliz, nakil, Kr >2,26)', t: 'chk', d: true }, { k: 'liver', l: 'Karaciğer hastalığı', t: 'chk' }, { k: 'bleed', l: 'Kanama öyküsü/eğilimi', t: 'chk' },
+   { k: 'inr', l: 'Labil INR', t: 'chk' }, { k: 'drugs', l: 'Antiplatelet/NSAİİ', t: 'chk' }, { k: 'alc', l: 'Alkol ≥8 birim/hafta', t: 'chk' },
+   { k: 'surg', l: 'Yüksek riskli cerrahi (intraperitoneal, intratorasik, suprainguinal vasküler)', t: 'chk', w: 1 }, { k: 'ins', l: 'İnsülin tedavisi', t: 'chk' }, { k: 'cr', l: 'Kreatinin', u: 'mg/dL', p: 'cr' }],
+  function (v) {
+    if (v.age == null) return NEED;
+    var c = C.cha2ds2va({ chf: v.chf, ht: v.ht, age: v.age, dm: v.dm, stroke: v.str, vasc: v.vasc });
+    var hb = C.hasbled({ ht: v.ht, renal: v.renal, liver: v.liver, stroke: v.str, bleed: v.bleed, inr: v.inr, elderly: v.age > 65, drugs: v.drugs, alcohol: v.alc });
+    var rc = C.rcri({ surg: v.surg, ihd: v.vasc, hf: v.chf, cvd: v.str, insulin: v.ins, cr2: v.cr != null && v.cr > 2 });
+    return rows([res('CHA₂DS₂-VA', c, '/8', c >= 2 ? 'crit' : c === 1 ? 'warn' : 'ok', c >= 2 ? 'OAK önerilir' : c === 1 ? 'OAK düşünülmeli' : 'OAK gerekmez'),
+      res('HAS-BLED', hb, '/9', hb >= 3 ? 'crit' : 'ok', hb >= 3 ? 'Yüksek kanama riski: değiştirilebilir faktörleri düzeltin' : 'Düşük-orta kanama riski'),
+      res('RCRI', rc, '/6', rc >= 2 ? 'crit' : rc === 1 ? 'warn' : 'ok', '30 gün MACE ≈ %' + ['3,9', '6,0', '10,1', '15'][Math.min(rc, 3)])]) +
+      '<p class="hint">CHA₂DS₂-VA ESC 2024 (cinsiyet çıkarıldı). Diyalizdeki AF\'de OAK yararı kanıtı sınırlıdır. RCRI risk oranları Duceppe 2017 (CCS).</p>';
+  });
+
+card('modul', 'c-cardx', 'Kardiyoloji yardımcıları', 'LDL (Sampson) · non-HDL · QTc · OAB · H₂FPEF',
+  [{ k: 'tc', l: 'Total kolesterol', u: 'mg/dL', d: 210 }, { k: 'hdl', l: 'HDL', u: 'mg/dL', d: 42 }, { k: 'tg', l: 'Trigliserid', u: 'mg/dL', d: 220 },
+   { k: 'qt', l: 'QT', u: 'ms', d: 420 }, { k: 'hr', l: 'Kalp hızı', u: '/dk', d: 82 }, { k: 'sbp', l: 'Sistolik KB', u: 'mmHg', d: 145 }, { k: 'dbp', l: 'Diyastolik KB', u: 'mmHg', d: 85 },
+   { k: 'h1', l: 'VKİ >30', t: 'chk' }, { k: 'h2', l: 'AF', t: 'chk' }, { k: 'h3', l: '≥2 antihipertansif', t: 'chk', d: true }, { k: 'h4', l: 'Yaş >60', t: 'chk', d: true }, { k: 'h5', l: 'E/e\' >9', t: 'chk' }, { k: 'h6', l: 'PASP >35 mmHg', t: 'chk' }],
+  function (v) {
+    var out = [];
+    if (need(v, ['tc', 'hdl', 'tg'])) {
+      out.push(res('LDL (Sampson/NIH)', f(C.ldlSampson(v.tc, v.hdl, v.tg), 0), 'mg/dL', 'accent', 'TG ≤800 mg/dL için geçerli · Friedewald ' + (v.tg <= 400 ? f(C.ldlFriedewald(v.tc, v.hdl, v.tg), 0) : 'uygulanamaz')));
+      out.push(res('Non-HDL kolesterol', f(v.tc - v.hdl, 0), 'mg/dL'));
+    }
+    if (need(v, ['qt', 'hr'])) { var q = C.qtc(v.qt, v.hr); out.push(res('QTc Fridericia', f(q.fridericia, 0), 'ms', q.fridericia > 500 ? 'crit' : q.fridericia > 450 ? 'warn' : 'ok', 'Bazett ' + f(q.bazett, 0) + ' · Framingham ' + f(q.framingham, 0) + ' · Hodges ' + f(q.hodges, 0))); }
+    if (need(v, ['sbp', 'dbp'])) { var m = C.mapPP(v.sbp, v.dbp); out.push(res('Ortalama arter basıncı', f(m.map, 0), 'mmHg', '', 'Nabız basıncı ' + f(m.pp, 0) + ' mmHg')); }
+    var hs = C.h2fpef({ bmi30: v.h1, af: v.h2, ht2: v.h3, age60: v.h4, ee9: v.h5, pasp35: v.h6 });
+    out.push(res('H₂FPEF', hs, '/9', hs >= 6 ? 'crit' : hs >= 2 ? 'warn' : 'ok', hs >= 6 ? 'HFpEF olasılığı yüksek' : hs >= 2 ? 'Orta olasılık: ek test' : 'Düşük olasılık'));
+    return rows(out);
+  });
+
 /* =================== MODÜLLER =================== */
 card('modul', 'c-diu', 'Ödem ve diüretik direnci', 'Eşdeğer doz · tavan doz · natriürez yanıtı · ardışık blokaj',
   [{ k: 'drug', l: 'Kıvrım diüretiği', t: 'sel', o: [['furoIV', 'Furosemid IV'], ['furoPO', 'Furosemid oral'], ['tor', 'Torasemid'], ['bum', 'Bumetanid']], d: 'furoIV' },
@@ -1428,6 +1666,34 @@ card('modul', 'c-tac', 'Takrolimus ve KNİ düzeyi', 'Hedef aralık · orantısa
   },
   '<details class="dx"><summary>Etkileşimler ve toksisite</summary><p><b>Düzeyi artıranlar (CYP3A4/P-gp inhibisyonu):</b> klaritromisin, eritromisin, ketokonazol, itrakonazol, vorikonazol, posakonazol, flukonazol, diltiazem, verapamil, ritonavir/kobisistat, greyfurt; şiddetli ishal.</p><p><b>Düzeyi düşürenler:</b> rifampisin, rifabutin, fenitoin, karbamazepin, fenobarbital, sarı kantaron.</p><p><b>Toksisite:</b> akut afferent vazokonstriksiyon, kronik çizgisel interstisyel fibrozis ve arteriyolar hiyalinoz; tremor, baş ağrısı, PRES; hiperkalemi ve tip 4 RTA; hipomagnezemi (TRPM6); NODAT (takrolimusta siklosporinden fazla); TMA; alopesi.</p><p><b>Siklosporin C0:</b> Oxford Handbook: 0–6 ay 200–250; 6–12 ay 150–200; >12 ay 75–150 ng/mL. Absolute Nephrology Review: 0–3 ay 200–400; 3–12 ay 100–200; >12 ay 100–200 ng/mL. C2: 0–3 ay 1000–1200 (800–1200); idame 600–800 (400–600) ng/mL.</p></details>');
 
+card('modul', 'c-plasmic', 'TMA: PLASMIC skoru', 'TTP (ADAMTS13 <%10) olasılığı',
+  [{ k: 'a', l: 'Trombosit <30.000/µL', t: 'chk', w: 1, d: true }, { k: 'b', l: 'Hemoliz (retikülosit >%2,5, haptoglobin saptanamaz veya indirekt bilirubin >2 mg/dL)', t: 'chk', w: 1, d: true },
+   { k: 'c', l: 'Aktif kanser yok', t: 'chk', w: 1, d: true }, { k: 'd', l: 'Solid organ veya kök hücre nakli yok', t: 'chk', w: 1, d: true },
+   { k: 'e', l: 'MCV <90 fL', t: 'chk', w: 1 }, { k: 'f', l: 'INR <1,5', t: 'chk', w: 1, d: true }, { k: 'g', l: 'Kreatinin <2,0 mg/dL', t: 'chk', w: 1 }],
+  function (v) {
+    var p = C.plasmic({ plt30: v.a, hemo: v.b, noCancer: v.c, noTx: v.d, mcv90: v.e, inr15: v.f, cr2: v.g });
+    return rows([res('PLASMIC', p.score, '/7', p.score >= 6 ? 'crit' : p.score === 5 ? 'warn' : 'ok', p.grp)]) +
+      '<p class="hint">Skor ≥6: ADAMTS13 sonucu beklenmeden plazmaferez ve hematoloji konsültasyonu. Kreatinin ≥2 ve düşük skor, kompleman aracılı TMA (aHUS) ve diğer nedenleri düşündürür.</p>';
+  });
+
+card('modul', 'c-mgus', 'MGUS ve MGRS', 'Mayo progresyon risk modeli',
+  [{ k: 'a', l: 'M-protein ≥1,5 g/dL', t: 'chk', w: 1 }, { k: 'b', l: 'IgG dışı M-protein (IgA, IgM)', t: 'chk', w: 1 }, { k: 'c', l: 'Anormal serbest hafif zincir oranı (<0,26 veya >1,65)', t: 'chk', w: 1, d: true }],
+  function (v) {
+    var m = C.mgrs({ m15: v.a, nonIgG: v.b, flc: v.c });
+    return rows([res('Risk faktörü', m.n, '/3', m.n >= 2 ? 'crit' : m.n === 1 ? 'warn' : 'ok', '20 yılda progresyon ≈ %' + m.risk20)]) +
+      '<p class="hint">Rajkumar SV, Blood 2005. Böbrek tutulumu (proteinüri, açıklanamayan eGFR düşüşü) varsa monoklonal gamopatiye bağlı böbrek hastalığı (MGRS) için böbrek biyopsisi ve hematoloji ile değerlendirme gerekir.</p>';
+  });
+
+card('modul', 'c-steroid', 'Steroid eşdeğer dozu', 'Glukokortikoid dönüşümü',
+  [{ k: 'from', l: 'Kullanılan', t: 'sel', d: 'prednizolon', o: Object.keys(C.STEROID).map(function (k) { return [k, k.charAt(0).toLocaleUpperCase('tr') + k.slice(1)]; }) },
+   { k: 'mg', l: 'Doz', u: 'mg', d: 40 },
+   { k: 'to', l: 'Dönüştürülecek', t: 'sel', d: 'metilprednizolon', o: Object.keys(C.STEROID).map(function (k) { return [k, k.charAt(0).toLocaleUpperCase('tr') + k.slice(1)]; }) }],
+  function (v) {
+    if (v.mg == null) return NEED;
+    return rows([res('Eşdeğer doz', f(C.steroidConv(v.from, v.mg, v.to), 2), 'mg', 'accent', 'Glukokortikoid etki eşdeğeri')]) +
+      '<p class="hint">Eşdeğer dozlar: hidrokortizon 20 · kortizon 25 · prednizolon/prednizon 5 · metilprednizolon 4 · triamsinolon 4 · deflazakort 6 · deksametazon 0,75 · betametazon 0,6–0,75 mg. Mineralokortikoid etki: hidrokortizon 1, prednizolon 0,8, metilprednizolon 0,5, deksametazon 0; fludrokortizon 125.</p>';
+  });
+
 /* =================== İLAÇ =================== */
 var drugFilter = { q: '', g: 'Tümü' };
 function bandHit(b, val) { return val != null && val >= b[0] && val < b[1]; }
@@ -1444,7 +1710,7 @@ function renderDrugs() {
       return '<tr class="' + (!dial && bandHit(b, val) ? 'hit' : '') + '"><th>' + lab + '</th><td>' + b[2] + '</td></tr>';
     }).join('');
     var dr = [['hd', 'HD'], ['pd', 'PD'], ['crrt', 'CRRT']].map(function (x) { return '<tr class="' + (P.mode === x[0] ? 'hit' : '') + '"><th>' + x[1] + '</th><td>' + d[x[0]] + '</td></tr>'; }).join('');
-    return '<article class="drug"><header><h3>' + d.ad + '</h3><span class="tag ' + (d.onay ? 'ok' : 'pend') + '">' + (d.onay ? 'Onaylandı' : 'Klinik onay bekliyor') + '</span></header>' +
+    return '<article class="drug"><header><h3>' + d.ad + '</h3><span class="tag ' + (d.onay ? 'ok' : 'pend') + '">' + (d.onay ? 'Onaylandı · ' + d.onay : 'Klinik onay bekliyor') + '</span></header>' +
       '<div class="meta">' + d.grup + ' · bantlar ' + (d.temel === 'CrCl' ? 'CrCl (mL/dk)' : 'eGFR (mL/dk/1,73 m²)') + '</div>' +
       (d.yukleme ? '<p class="load"><b>Yükleme:</b> ' + d.yukleme + '</p>' : '') +
       '<div class="tw"><table class="dose">' + bands + dr + '<tr><th>HD sonrası ek</th><td>' + d.ekDoz + '</td></tr></table></div>' +
@@ -1459,6 +1725,7 @@ var REFS = [
   ['Elektrolit ve asit–baz', ['Spasovski G, et al. Clinical practice guideline on diagnosis and treatment of hyponatraemia. Nephrol Dial Transplant 2014;29 Suppl 2:i1-39. PMID 24569496', 'Verbalis JG, et al. Diagnosis, evaluation, and treatment of hyponatremia: expert panel recommendations. Am J Med 2013;126(10 Suppl 1):S1-42. PMID 24074529', 'UK Kidney Association. Clinical Practice Guideline: Treatment of Acute Hyperkalaemia in Adults, 2023', 'Berend K, de Vries AP, Gans RO. Physiological approach to assessment of acid–base disturbances. N Engl J Med 2014;371:1434-45. PMID 25295502']],
   ['Diyaliz', ['National Kidney Foundation. KDOQI Clinical Practice Guideline for Hemodialysis Adequacy: 2015 update. Am J Kidney Dis 2015;66:884-930. PMID 26498416', 'Daugirdas JT. Second generation logarithmic estimates of single-pool Kt/V. J Am Soc Nephrol 1993;4:1205-13. PMID 8305648', 'Depner TA, Daugirdas JT. Equations for normalized protein catabolic rate based on two-point modeling of hemodialysis urea kinetics. J Am Soc Nephrol 1996;7:780-5. PMID 8738814', 'Brown EA, et al. ISPD practice recommendations: prescribing high-quality goal-directed peritoneal dialysis. Perit Dial Int 2020;40:244-53. PMID 32063219', 'Li PK, et al. ISPD peritonitis guideline recommendations: 2022 update. Perit Dial Int 2022;42:110-53. PMID 35264029']],
   ['Risk skorları', ['Mehran R, et al. A simple risk score for prediction of contrast-induced nephropathy after PCI. J Am Coll Cardiol 2004;44:1393-9. PMID 15464318', 'SCORE2 working group and ESC Cardiovascular risk collaboration. SCORE2 risk prediction algorithms. Eur Heart J 2021;42:2439-54. PMID 34120177', 'SCORE2-OP working group. SCORE2-OP risk prediction algorithms. Eur Heart J 2021;42:2455-67. PMID 34120185', 'SCORE2-Diabetes Working Group. SCORE2-Diabetes: 10-year cardiovascular risk estimation in type 2 diabetes in Europe. Eur Heart J 2023;44:2544-56', 'Matsushita K, et al. Including measures of chronic kidney disease to improve cardiovascular risk prediction by SCORE2 and SCORE2-OP. Eur J Prev Cardiol 2023;30:8-16', 'Weisbord SD, et al. Outcomes after angiography with sodium bicarbonate and acetylcysteine (PRESERVE). N Engl J Med 2018;378:603-14. PMID 29130810']],
+  ['Eklenen hesaplayıcılar (0.3.0)', ['Khan SS, et al. Development and validation of the AHA PREVENT equations. Circulation 2024;149:430-49. PMID 37947085', 'Ndumele CE, et al. Cardiovascular-kidney-metabolic health: a presidential advisory from the AHA. Circulation 2023;148:1606-35. PMID 37807924', 'Thakar CV, et al. A clinical score to predict acute renal failure after cardiac surgery. J Am Soc Nephrol 2005;16:162-8. PMID 15563569', 'Irazabal MV, et al. Imaging classification of ADPKD. J Am Soc Nephrol 2015;26:160-72. PMID 24904092', 'Cornec-Le Gall E, et al. The PROPKD score. J Am Soc Nephrol 2016;27:942-51. PMID 26150605', 'Bendapudi PK, et al. Derivation and external validation of the PLASMIC score. Lancet Haematol 2017;4:e157-64. PMID 28259520', 'Sampson M, et al. A new equation for calculation of LDL cholesterol. JAMA Cardiol 2020;5:540-8. PMID 32101259', 'Rajkumar SV, et al. Serum free light chain ratio is an independent risk factor for progression in MGUS. Blood 2005;106:812-7. PMID 15855274', 'Van Gelder IC, et al. 2024 ESC Guidelines for the management of atrial fibrillation. Eur Heart J 2024;45:3314-414']],
   ['Diüretik ve transplant', ['Brater DC. Diuretic therapy. N Engl J Med 1998;339:387-95. PMID 9691107', 'Mullens W, et al. The use of diuretics in heart failure with congestion: a position statement from the HFA of the ESC. Eur J Heart Fail 2019;21:137-55. PMID 30600580', 'Mullens W, et al. Acetazolamide in acute decompensated heart failure with volume overload (ADVOR). N Engl J Med 2022;387:1185-95. PMID 36027559', 'Felker GM, et al. Diuretic strategies in patients with acute decompensated heart failure (DOSE). N Engl J Med 2011;364:797-805. PMID 21366472', 'Ekberg H, et al. Reduced exposure to calcineurin inhibitors in renal transplantation (ELITE-Symphony). N Engl J Med 2007;357:2562-75. PMID 18094377', 'KDIGO Clinical Practice Guideline for the Care of Kidney Transplant Recipients. Am J Transplant 2009;9 Suppl 3:S1-155']],
   ['Kardiyorenal ilaçlar', ['Heerspink HJL, et al. Dapagliflozin in patients with CKD (DAPA-CKD). N Engl J Med 2020;383:1436-46. PMID 32970396', 'The EMPA-KIDNEY Collaborative Group. Empagliflozin in patients with CKD. N Engl J Med 2023;388:117-27. PMID 36331190', 'Bakris GL, et al. Effect of finerenone on CKD outcomes in type 2 diabetes (FIDELIO-DKD). N Engl J Med 2020;383:2219-29. PMID 33264825', 'Perkovic V, et al. Effects of semaglutide on CKD in patients with type 2 diabetes (FLOW). N Engl J Med 2024;391:109-21. PMID 38785209', 'Rybak MJ, et al. Therapeutic monitoring of vancomycin for serious MRSA infections: revised consensus guideline. Am J Health Syst Pharm 2020;77:835-64. PMID 32191793']],
   ['Birincil kaynak: Nefroloji Kaynaklar eBook (NotebookLM)', ['Current Diagnosis & Treatment Nephrology & Hypertension · Harrison\'s Nephrology and Acid-Base Disorders · Nephrology Secrets · Oxford Handbook of Nephrology and Hypertension · Oxford Handbook of Dialysis · Absolute Nephrology Review · Nephrology Rounds · Primer on Nephrology · Renal Transplantasyon']]
