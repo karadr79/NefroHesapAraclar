@@ -165,6 +165,10 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
 .toast button { background: #7fd0e0; color: #0a2630; border: 0; border-radius: 7px; padding: 5px 10px; font-weight: 700; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
+.linkcard { display: grid; gap: 2px; text-decoration: none; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; margin-bottom: 12px; }
+.linkcard b { color: var(--accent); }
+.linkcard span { font-size: 13px; color: var(--muted); }
+
 </style>
 </head>
 <body>
@@ -206,9 +210,10 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
         <div class="fld"><label for="set-unit">Üre birimi</label><select id="set-unit"><option value="ure">Üre (mg/dL)</option><option value="bun">BUN (mg/dL)</option></select></div>
         <div class="fld"><label for="set-theme">Tema</label><select id="set-theme"><option value="auto">Sistem</option><option value="light">Açık</option><option value="dark">Koyu</option></select></div>
       </div>
+      <a class="linkcard" href="https://karadr79.github.io/nefro-kons/" target="_blank" rel="noopener"><b>Nefro Kons</b><span>Nefroloji konsültasyon formu ve el kitabı ↗</span></a>
       <div class="box info"><b>Kullanım koşulu.</b> Bu uygulama eğitim ve hızlı başvuru amaçlıdır; klinik kararın ve kurum protokollerinin yerini almaz. Hasta tanımlayıcı veri toplamaz ve sunucuya veri göndermez.</div>
       <dl class="facts">
-        <dt>Sürüm</dt><dd>0.3.1 · 22 Ekim 2026</dd>
+        <dt>Sürüm</dt><dd>0.3.2 · 22 Ekim 2026</dd>
         <dt>Formül testleri</dt><dd>108 referans olgu, 108 geçti</dd>
         <dt>Onaylı ilaç</dt><dd id="onay-sayi"></dd>
         <dt>Çevrimdışı</dt><dd id="sw-state">Denetleniyor…</dd>
@@ -1771,7 +1776,7 @@ function sw() {
   if (!('serviceWorker' in navigator) || location.protocol === 'file:') { $('#sw-state').textContent = 'Çevrimdışı önbellek bu ortamda kullanılamıyor.'; return; }
   var offer = function (w) {
     if (!w || !navigator.serviceWorker.controller) return;
-    var t = $('#toast'); t.hidden = false;
+    var t = $('#toast'); t.firstChild.textContent = 'Yeni sürüm hazır. '; t.querySelector('button').textContent = 'Yenile'; t.hidden = false;
     $('#toast button').onclick = function () { w.postMessage('skip'); };
   };
   navigator.serviceWorker.register('sw.js').then(function (reg) {
@@ -1783,14 +1788,32 @@ function sw() {
     });
     document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') reg.update().catch(function () {}); });
   }).catch(function () { $('#sw-state').textContent = 'Çevrimdışı önbellek kurulamadı.'; });
-  var reloaded = false;
-  navigator.serviceWorker.addEventListener('controllerchange', function () { if (!reloaded) { reloaded = true; location.reload(); } });
+  var reloaded = false, hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', function () { if (hadController && !reloaded) { reloaded = true; location.reload(); } });
 }
 
 document.addEventListener('DOMContentLoaded', function () {
   mountCards(); bindPatient(); bindSettings(); bindDrugs(); renderStrip(); renderRefs();
   $$('nav.bottom button').forEach(function (b) { b.addEventListener('click', function () { setTab(b.dataset.tab); }); });
   var start = (location.hash || '').slice(1);
+  // Nefro Kons'tan aktarım: #hasta:yas=65;cins=E;kilo=72;kr=1.8 — değerler alınır, adres temizlenir
+  if (start.indexOf('hasta:') === 0) {
+    var map = { yas: 'age', kilo: 'wt', boy: 'ht', kr: 'cr', cys: 'cys' }, got = [];
+    start.slice(6).split(';').forEach(function (kv) {
+      var p = kv.split('='), k = p[0], v = decodeURIComponent(p[1] || '');
+      if (k === 'cins' && (v === 'E' || v === 'K')) { P.sex = v; got.push('cinsiyet'); }
+      else if (map[k] && num(v) != null) { P[map[k]] = num(v); got.push({ kr: 'kreatinin', yas: 'yaş', kilo: 'kilo', boy: 'boy', cys: 'sistatin C' }[k]); }
+    });
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    start = 'hesap';
+    if (got.length) {
+      ['age', 'wt', 'ht', 'cr', 'cys'].forEach(function (k) { var i = $('#pt-' + k); if (i) i.value = P[k] == null ? '' : String(P[k]).replace('.', ','); });
+      $('#pt-sex').value = P.sex; renderStrip();
+      var t = $('#toast'); t.firstChild.textContent = 'Nefro Kons\'tan aktarıldı: ' + got.join(', ') + '. ';
+      t.querySelector('button').textContent = 'Tamam'; t.querySelector('button').onclick = function () { t.hidden = true; };
+      t.hidden = false; setTimeout(function () { t.hidden = true; }, 6000);
+    }
+  }
   setTab(['hesap', 'elektrolit', 'modul', 'ilac', 'kaynak'].indexOf(start) >= 0 ? start : (store('tab') || 'hesap'));
   var first = $('#c-egfr'); if (first) { first.open = true; }
   sw();

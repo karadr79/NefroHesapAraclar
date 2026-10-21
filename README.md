@@ -1,6 +1,6 @@
 # Nefro Araçlar
 
-Nefrolojide sık kullanılan hesaplayıcılar, risk skorları, asit–baz ve elektrolit algoritmaları ile böbrek fonksiyonuna göre ilaç dozu rehberi. RTEÜ Tıp Fakültesi Nefroloji Bilim Dalı için hazırlanmıştır. Sürüm 0.3.1.
+Nefrolojide sık kullanılan hesaplayıcılar, risk skorları, asit–baz ve elektrolit algoritmaları ile böbrek fonksiyonuna göre ilaç dozu rehberi. RTEÜ Tıp Fakültesi Nefroloji Bilim Dalı için hazırlanmıştır. Sürüm 0.3.2.
 
 **Uygulama:** https://karadr79.github.io/NefroHesapAraclar/
 
@@ -16,6 +16,10 @@ Nefrolojide sık kullanılan hesaplayıcılar, risk skorları, asit–baz ve ele
 | İlaç | 46 ilaç (22.10.2026 klinik onaylı); CrCl/eGFR bantları, HD, PD, CRRT dozları |
 
 Formül, eşik ve doz değerleri Nefroloji Kaynaklar eBook esas alınarak hazırlanmıştır.
+
+## Nefro Kons ile birlikte
+
+Nefro Kons'taki "Hesap araçları" düğmesi bu uygulamayı açar ve formdaki yaş, cinsiyet, kilo ve kreatinin değerlerini hasta şeridine aktarır. Değerler bağlantının `#` kısmında taşınır, sunucuya gönderilmez ve uygulama açılınca adresten silinir. Kaynak sekmesinden Nefro Kons'a geri dönülebilir.
 
 ## Telefona kurulum
 
