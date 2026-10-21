@@ -208,7 +208,7 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
       </div>
       <div class="box info"><b>Kullanım koşulu.</b> Bu uygulama eğitim ve hızlı başvuru amaçlıdır; klinik kararın ve kurum protokollerinin yerini almaz. Hasta tanımlayıcı veri toplamaz ve sunucuya veri göndermez.</div>
       <dl class="facts">
-        <dt>Sürüm</dt><dd>0.3.0 · 22 Ekim 2026</dd>
+        <dt>Sürüm</dt><dd>0.3.1 · 22 Ekim 2026</dd>
         <dt>Formül testleri</dt><dd>108 referans olgu, 108 geçti</dd>
         <dt>Onaylı ilaç</dt><dd id="onay-sayi"></dd>
         <dt>Çevrimdışı</dt><dd id="sw-state">Denetleniyor…</dd>
@@ -1769,17 +1769,19 @@ function bindDrugs() {
 }
 function sw() {
   if (!('serviceWorker' in navigator) || location.protocol === 'file:') { $('#sw-state').textContent = 'Çevrimdışı önbellek bu ortamda kullanılamıyor.'; return; }
+  var offer = function (w) {
+    if (!w || !navigator.serviceWorker.controller) return;
+    var t = $('#toast'); t.hidden = false;
+    $('#toast button').onclick = function () { w.postMessage('skip'); };
+  };
   navigator.serviceWorker.register('sw.js').then(function (reg) {
     $('#sw-state').textContent = 'Çevrimdışı kullanıma hazır.';
+    if (reg.waiting) offer(reg.waiting);
     reg.addEventListener('updatefound', function () {
       var nw = reg.installing;
-      nw.addEventListener('statechange', function () {
-        if (nw.state === 'installed' && navigator.serviceWorker.controller) {
-          var t = $('#toast'); t.hidden = false;
-          $('#toast button').onclick = function () { nw.postMessage('skip'); };
-        }
-      });
+      nw.addEventListener('statechange', function () { if (nw.state === 'installed') offer(nw); });
     });
+    document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') reg.update().catch(function () {}); });
   }).catch(function () { $('#sw-state').textContent = 'Çevrimdışı önbellek kurulamadı.'; });
   var reloaded = false;
   navigator.serviceWorker.addEventListener('controllerchange', function () { if (!reloaded) { reloaded = true; location.reload(); } });

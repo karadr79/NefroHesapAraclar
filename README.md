@@ -1,6 +1,6 @@
 # Nefro Araçlar
 
-Nefrolojide sık kullanılan hesaplayıcılar, risk skorları, asit–baz ve elektrolit algoritmaları ile böbrek fonksiyonuna göre ilaç dozu rehberi. RTEÜ Tıp Fakültesi Nefroloji Bilim Dalı için hazırlanmıştır. Sürüm 0.3.0.
+Nefrolojide sık kullanılan hesaplayıcılar, risk skorları, asit–baz ve elektrolit algoritmaları ile böbrek fonksiyonuna göre ilaç dozu rehberi. RTEÜ Tıp Fakültesi Nefroloji Bilim Dalı için hazırlanmıştır. Sürüm 0.3.1.
 
 **Uygulama:** https://karadr79.github.io/NefroHesapAraclar/
 
