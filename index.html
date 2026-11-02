@@ -283,8 +283,8 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
   function ckdepi2012cys(scys, age, female) {
     return 133 * pow(min(scys / 0.8, 1), -0.499) * pow(max(scys / 0.8, 1), -1.328) * pow(0.996, age) * (female ? 0.932 : 1);
   }
-  function ibw(heightCm, female) { // Oxford Handbook of Dialysis Kutu 18.1: E 50, K 45 kg + 1 kg/cm (152 cm üstü)
-    return (female ? 45 : 50) + (heightCm - 152);
+  function ibw(heightCm, female) { // Devine (1974): E 50 kg, K 45,5 kg + 152,4 cm (5 ft) üstü her inç (2,54 cm) için 2,3 kg
+    return (female ? 45.5 : 50) + 2.3 * (heightCm - 152.4) / 2.54;
   }
   function adjbw(weight, heightCm, female) { var i = ibw(heightCm, female); return i + 0.4 * (weight - i); }
   function bsaDuBois(w, h) { return 0.007184 * pow(w, 0.425) * pow(h, 0.725); }
@@ -1070,7 +1070,7 @@ card('hesap', 'c-egfr', 'eGFR ve kreatinin klirensi', 'CKD-EPI 2021 · Cockcroft
       html += '<table class="mini"><tr><th>Kilo</th><th>kg</th><th>CrCl mL/dk</th></tr>' +
         [['Gerçek', v.wt], ['İdeal', ib], ['Düzeltilmiş (İVA + 0,4×fark)', aj]].map(function (x) { return '<tr><td>' + x[0] + '</td><td>' + f(x[1], 0) + '</td><td>' + f(C.cockcroftGault(v.age, x[1], v.cr, fem), 0) + '</td></tr>'; }).join('') + '</table>';
     } else if (v.wt) html += rows([res('CrCl (gerçek kilo)', f(C.cockcroftGault(v.age, v.wt, v.cr, fem), 0), 'mL/dk')]);
-    html += '<p class="hint">Kilo seçimi: gerçek kilo ideal kilonun altındaysa gerçek; ideal kilonun %120\'sini aşıyor veya VKİ ≥30 ise düzeltilmiş (İVA + 0,4 × fark); arada ideal kilo. İdeal kilo: E 50, K 45 kg + 152 cm üstü her cm için 1 kg. Kreatinin hızla değişiyorsa (AKI) hiçbir denklem geçerli değildir.</p>';
+    html += '<p class="hint">Kilo seçimi: gerçek kilo ideal kilonun altındaysa gerçek; ideal kilonun %120\'sini aşıyor veya VKİ ≥30 ise düzeltilmiş (İVA + 0,4 × fark); arada ideal kilo. İdeal kilo (Devine): E 50, K 45,5 kg + 152,4 cm üstü her 2,54 cm için 2,3 kg. Bu tanımlar ilaç dozu içindir; Klinik Beslenme uygulamasındaki ideal ve düzeltilmiş ağırlık, beslenme hedefleri için farklı bir formül (ESPEN) kullanır. Kreatinin hızla değişiyorsa (AKI) hiçbir denklem geçerli değildir.</p>';
     return html;
   });
 

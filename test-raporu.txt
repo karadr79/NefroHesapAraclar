@@ -4,8 +4,8 @@ GEÇTİ | CKD-EPI 2021 cr, E 40y Kr 0,7 (κ altı) | hesap 119.456 | beklenen 11
 GEÇTİ | CKD-EPI 2021 cr-cys, E 60y Kr 1,2 CysC 1,2 | hesap 66.611 | beklenen 66.61077738522697 ±0.01 | Inker 2021 (NEJM) / NKF-NIDDK katsayıları (3 Kasım 2026'da 2012 katsayılarından düzeltildi)
 GEÇTİ | Cockcroft-Gault E 70y 70kg Kr 1,4 | hesap 48.611 | beklenen 48.6 ±0.1 | (140-70)×70/(72×1,4)
 GEÇTİ | Cockcroft-Gault K ×0,85 | hesap 41.319 | beklenen 41.3 ±0.1 | 0,85 katsayısı
-GEÇTİ | İdeal kilo E 175 cm | hesap 73.000 | beklenen 73 ±0.001 | 50 + 1×(175-152); Oxford Handbook of Dialysis
-GEÇTİ | İdeal kilo K 160 cm | hesap 53.000 | beklenen 53 ±0.001 | 45 + 1×(160-152)
+GEÇTİ | İdeal kilo E 175 cm | hesap 70.465 | beklenen 70.465 ±0.001 | Devine: 50 + 2,3×(175−152,4)/2,54
+GEÇTİ | İdeal kilo K 160 cm | hesap 52.382 | beklenen 52.382 ±0.001 | Devine: 45,5 + 2,3×(160−152,4)/2,54
 GEÇTİ | DuBois BSA 70 kg 170 cm | hesap 1.810 | beklenen 1.81 ±0.01 | DuBois 1916
 GEÇTİ | KDIGO G evresi 39 | "G3b" | beklenen "G3b" | KDIGO 2024
 GEÇTİ | KDIGO A evresi 450 | "A3" | beklenen "A3" | KDIGO 2024
