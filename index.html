@@ -170,8 +170,30 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
 .linkcard span { font-size: 13px; color: var(--muted); }
 
 </style>
+<!--suite-head--><link rel="stylesheet" href="fonts-suite/fonts.css"><style id="suite">
+/* === RTEÜ Nefroloji uygulama ailesi (ortak) === */
+.suite{display:flex;align-items:center;gap:18px;background:#0E1F2E;color:#C9D6E2;
+  font:500 13px/1.2 "Atkinson Hyperlegible Next",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:0 max(14px,env(safe-area-inset-right,0px)) 0 max(14px,env(safe-area-inset-left,0px));
+  padding-top:env(safe-area-inset-top,0px);overflow-x:auto;scrollbar-width:none;border-bottom:1px solid rgba(255,255,255,.08)}
+.suite::-webkit-scrollbar{display:none}
+.suite-org{font-weight:800;color:#fff;white-space:nowrap;letter-spacing:.01em}
+.suite-apps{display:flex;gap:16px;margin:0;padding:0;list-style:none}
+.suite a{color:#C9D6E2;text-decoration:none;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;
+  padding:10px 0 8px;border-bottom:2px solid transparent;min-height:40px;box-sizing:border-box}
+.suite a::before{content:"";width:9px;height:9px;border-radius:2px;background:var(--suite-c)}
+.suite a:hover{color:#fff}
+.suite a[aria-current="page"]{color:#fff;font-weight:700;border-bottom-color:var(--suite-c)}
+.suite a:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:2px}
+.suite .ss{display:none}
+@media (max-width:520px){.suite-org{display:none}.suite .sl{display:none}.suite .ss{display:inline}.suite-apps{gap:14px}}
+@media print{.suite{display:none}}
+
+:root{--head:#14293D;--muted:#4D5F6A;--f-ui:"Atkinson Hyperlegible Next",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--f-num:"Atkinson Hyperlegible Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+.fld label i{opacity:1;color:var(--muted)}
+</style><!--/suite-head-->
 </head>
 <body>
+<!--suite-nav--><nav class="suite" aria-label="RTEÜ Nefroloji uygulamaları"><span class="suite-org">RTEÜ Nefroloji</span><ul class="suite-apps"><li><a href="https://karadr79.github.io/nefro-kons/" style="--suite-c:#A9BCD3"><span class="sl">Konsültasyon</span><span class="ss">Konsültasyon</span></a></li><li><a href="https://karadr79.github.io/NefroHesapAraclar/" style="--suite-c:#46BDD0" aria-current="page"><span class="sl">Hesap araçları</span><span class="ss">Hesap</span></a></li><li><a href="https://karadr79.github.io/KBHRehberi/" style="--suite-c:#7FB0E0"><span class="sl">KBH Rehberi</span><span class="ss">KBH</span></a></li><li><a href="https://karadr79.github.io/KlinikBeslenme/" style="--suite-c:#5DBE8F"><span class="sl">Klinik beslenme</span><span class="ss">Beslenme</span></a></li></ul></nav><!--/suite-nav-->
 <div class="app">
   <header class="top">
     <div class="brand"><span class="mark" aria-hidden="true"></span><div><h1>Nefro Araçlar</h1><p>RTEÜ Nefroloji · eğitim amaçlıdır</p></div></div>
