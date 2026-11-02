@@ -1,7 +1,7 @@
 GEÇTİ | CKD-EPI 2021 cr, K 50y Kr 1,0 | hesap 68.633 | beklenen 68.6 ±0.6 | Inker 2021; NKF eGFR calculator ≈68
 GEÇTİ | CKD-EPI 2021 cr, E 60y Kr 1,2 | hesap 69.231 | beklenen 69.2 ±0.6 | NKF calculator ≈69
 GEÇTİ | CKD-EPI 2021 cr, E 40y Kr 0,7 (κ altı) | hesap 119.456 | beklenen 119.45646822701602 ±0.01 | formül dalı min(Scr/κ)
-GEÇTİ | CKD-EPI 2012 cr-cys, E 60y Kr 1,2 CysC 1,2 | hesap 63.013 | beklenen 63.01291161213864 ±0.01 | Nephrology Secrets Bl.3 katsayıları
+GEÇTİ | CKD-EPI 2021 cr-cys, E 60y Kr 1,2 CysC 1,2 | hesap 66.611 | beklenen 66.61077738522697 ±0.01 | Inker 2021 (NEJM) / NKF-NIDDK katsayıları (3 Kasım 2026'da 2012 katsayılarından düzeltildi)
 GEÇTİ | Cockcroft-Gault E 70y 70kg Kr 1,4 | hesap 48.611 | beklenen 48.6 ±0.1 | (140-70)×70/(72×1,4)
 GEÇTİ | Cockcroft-Gault K ×0,85 | hesap 41.319 | beklenen 41.3 ±0.1 | 0,85 katsayısı
 GEÇTİ | İdeal kilo E 175 cm | hesap 73.000 | beklenen 73 ±0.001 | 50 + 1×(175-152); Oxford Handbook of Dialysis

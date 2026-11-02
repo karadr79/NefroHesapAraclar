@@ -272,13 +272,12 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
     var k = female ? 0.7 : 0.9, a = female ? -0.241 : -0.302;
     return 142 * pow(min(scr / k, 1), a) * pow(max(scr / k, 1), -1.200) * pow(0.9938, age) * (female ? 1.012 : 1);
   }
-  // CKD-EPI 2012 kreatinin–sistatin C (KDIGO önerisi; siyahi ırk katsayısı 1,08 burada uygulanmaz)
-  // Kaynak: Nephrology Secrets Bl.3; Primer on Nephrology Tablo 3.3
+  // CKD-EPI 2021 kreatinin–sistatin C (ırk katsayısız; KDIGO 2024 önerisi) — Inker LA, NEJM 2021;385:1737 (PMID 34554658)
   function ckdepi2021crcys(scr, scys, age, female) {
-    var k = female ? 0.7 : 0.9, a = female ? -0.248 : -0.207;
-    return 135 * pow(min(scr / k, 1), a) * pow(max(scr / k, 1), -0.601) *
-      pow(min(scys / 0.8, 1), -0.375) * pow(max(scys / 0.8, 1), -0.711) *
-      pow(0.995, age) * (female ? 0.969 : 1);
+    var k = female ? 0.7 : 0.9, a = female ? -0.219 : -0.144;
+    return 135 * pow(min(scr / k, 1), a) * pow(max(scr / k, 1), -0.544) *
+      pow(min(scys / 0.8, 1), -0.323) * pow(max(scys / 0.8, 1), -0.778) *
+      pow(0.9961, age) * (female ? 0.963 : 1);
   }
   // CKD-EPI 2012 sistatin C — Inker LA, NEJM 2012;367:20
   function ckdepi2012cys(scys, age, female) {
@@ -851,9 +850,9 @@ var ILAC = [
   hd:'Kontrendike', ekDoz:'—', pd:'Kontrendike', crrt:'Kontrendike',
   not:'AKI, sepsis, hipoksi ve iyotlu kontrast öncesi ara verin.', kaynak:'Nefroloji Kaynaklar eBook (Endocrine Disorders in Kidney Disease Bl.5; Nephrology Secrets Bl.21, 25); KDIGO Diyabet-KBH 2022' },
 { id:'dapa', ad:'Dapagliflozin', grup:'Diyabet', temel:'eGFR',
-  bantlar:[[25,I,'10 mg/gün (renal ve KY koruması; glisemik etki eGFR düştükçe azalır)'],[0,25,'Yeni başlanmaz; önceden başlanmışsa diyalize kadar sürdürülebilir']],
+  bantlar:[[20,I,'10 mg/gün (renal ve KY koruması; glisemik etki eGFR düştükçe azalır)'],[0,20,'Yeni başlanmaz; önceden başlanmışsa diyalize kadar sürdürülebilir']],
   hd:'Kontrendike / yararı gösterilmemiş', ekDoz:'—', pd:'Kontrendike / yararı gösterilmemiş', crrt:'—',
-  not:'Başlangıçta eGFR\'de geri dönüşlü düşüş beklenir. Akut hastalıkta ve cerrahi öncesi ara verin (öglisemik ketoasidoz).', kaynak:'Nefroloji Kaynaklar eBook (Endocrine Disorders in Kidney Disease Bl.5; Nephrology Secrets Bl.21, 25); DAPA-CKD (PMID 32970396)' },
+  not:'KDIGO 2024: SGLT2i eGFR ≥20 iken başlanır (prospektüste başlangıç eşiği ≥25). Başlangıçta eGFR\'de geri dönüşlü düşüş beklenir. Akut hastalıkta ve cerrahi öncesi ara verin (öglisemik ketoasidoz).', kaynak:'Nefroloji Kaynaklar eBook (Endocrine Disorders in Kidney Disease Bl.5; Nephrology Secrets Bl.21, 25); DAPA-CKD (PMID 32970396)' },
 { id:'empa', ad:'Empagliflozin', grup:'Diyabet', temel:'eGFR',
   bantlar:[[20,I,'10 mg/gün (renal ve KV koruma; eGFR ≥20–30)'],[0,20,'Yeni başlanmaz']],
   hd:'Kontrendike / yararı gösterilmemiş', ekDoz:'—', pd:'Kontrendike / yararı gösterilmemiş', crrt:'—',
@@ -874,7 +873,7 @@ var ILAC = [
 { id:'finerenon', ad:'Finerenon', grup:'Kardiyorenal', temel:'eGFR',
   bantlar:[[60,I,'20 mg/gün'],[25,60,'10 mg/gün başla; 4. hafta K ≤4,8 ve eGFR düşüşü <%30 ise 20 mg'],[0,25,'Başlamayın']],
   hd:'Önerilmez', ekDoz:'—', pd:'Önerilmez', crrt:'—',
-  not:'Başlangıç koşulu K ≤5,0 mmol/L. K >5,5 olursa ara verin; ≤5,0 olunca 10 mg ile yeniden başlayın. Güçlü CYP3A4 inhibitörleriyle kontrendike.', kaynak:'FIDELIO-DKD (Bakris, NEJM 2020; PMID 33264825); FIGARO-DKD; KDIGO Diyabet-KBH 2022' },
+  not:'Başlangıç koşulu K ≤4,8 mmol/L (KDIGO 2024; FDA prospektüsü <5,0). K >5,5 olursa ara verin; ≤5,0 olunca 10 mg ile yeniden başlayın. Güçlü CYP3A4 inhibitörleriyle kontrendike.', kaynak:'FIDELIO-DKD (Bakris, NEJM 2020; PMID 33264825); FIGARO-DKD; KDIGO Diyabet-KBH 2022' },
 { id:'spiro', ad:'Spironolakton', grup:'Kardiyorenal', temel:'eGFR',
   bantlar:[[50,I,'Normal doz (KY: 25–50 mg/gün)'],[30,50,'12,5–25 mg gün aşırı ya da günde 1'],[0,30,'Kaçının (hiperkalemi)']],
   hd:'Rutin önerilmez', ekDoz:'—', pd:'Rutin önerilmez', crrt:'—',
