@@ -1189,15 +1189,20 @@ card('hesap', 'c-urine', '24 saatlik idrar ve proteinüri', 'Toplama yeterliliğ
 card('hesap', 'c-anemi', 'KBH anemisi', 'TSAT · Ganzoni · ESA dönüşümü · ERI',
   [{ k: 'hb', l: 'Hb', u: 'g/dL', d: 9.2 }, { k: 'hbt', l: 'Hedef Hb', u: 'g/dL', d: 11 }, { k: 'wt', l: 'Kilo', u: 'kg', p: 'wt' },
    { k: 'fe', l: 'Serum demir', u: 'µg/dL', d: 45 }, { k: 'tibc', l: 'TDBK', u: 'µg/dL', d: 260 }, { k: 'fer', l: 'Ferritin', u: 'ng/mL', d: 180 },
-   { k: 'dial', l: 'Hasta grubu', t: 'sel', o: [['hd', 'Hemodiyaliz'], ['nd', 'Diyaliz dışı KBH']], d: 'hd' },
+   { k: 'dial', l: 'Hasta grubu', t: 'sel', o: [['hd', 'Hemodiyaliz'], ['nd', 'Diyaliz dışı KBH veya PD']], d: 'hd' },
    { k: 'epo', l: 'Haftalık epoetin', u: 'IU', ph: 'ops.' }, { k: 'darb', l: 'Haftalık darbepoetin', u: 'µg', ph: 'ops.' }],
   function (v) {
     var out = [], h = '';
     if (need(v, ['fe', 'tibc'])) {
-      var t = C.tsat(v.fe, v.tibc), ferLo = v.dial === 'hd' ? 200 : 100;
-      out.push(res('TSAT', '%' + f(t, 0), '', t < 20 ? 'crit' : 'ok', t < 20 ? 'Mutlak/fonksiyonel demir eksikliği' : 'Hedef ' + (v.dial === 'hd' ? '%20–40' : '%20–30')));
-      if (v.fer != null) out.push(res('Ferritin', f(v.fer, 0), 'ng/mL', v.fer < ferLo ? 'warn' : v.fer > 500 ? 'warn' : 'ok', 'Hedef >' + ferLo + (v.dial === 'hd' ? ' (üst sınır 500–800)' : ' (100–500)')));
-      if (t <= 30 && (v.fer == null || v.fer <= 500)) h += box('info', '', '<p>TSAT ≤%30 ve ferritin ≤500 ng/mL: Hb artışı veya ESA dozunu azaltmak hedefleniyorsa IV/oral demir denenmesi önerilir (KDIGO).</p>');
+      // KDIGO 2026 anemi eşikleri (KBH Rehberi ile aynı)
+      var t = C.tsat(v.fe, v.tibc), hd = v.dial === 'hd';
+      var stopFe = (v.fer != null && v.fer > 700) || t >= 40;
+      var startFe = hd ? (t <= 30 && v.fer != null && v.fer <= 500)
+        : (v.fer != null && ((v.fer < 100 && t < 40) || (v.fer >= 100 && v.fer < 300 && t < 25)));
+      out.push(res('TSAT', '%' + f(t, 0), '', t < 20 ? 'crit' : t >= 40 ? 'warn' : 'ok', t < 20 ? 'Mutlak/fonksiyonel demir eksikliği' : t >= 40 ? 'TSAT ≥%40: rutin demir kesilebilir' : (hd ? 'Başlama eşiği ≤%30 (ferritin ≤500 ile)' : 'Başlama eşiği ferritine göre <%40 veya <%25')));
+      if (v.fer != null) out.push(res('Ferritin', f(v.fer, 0), 'ng/mL', v.fer > 700 ? 'warn' : 'ok', hd ? 'Başlama ≤500 (TSAT ≤%30 ile) · >700 ise kesmek makul' : 'Başlama <100 (TSAT <%40) veya 100–299 (TSAT <%25) · >700 ise kesmek makul'));
+      if (stopFe) h += box('warn', '', '<p>Ferritin >700 ng/mL veya TSAT ≥%40: rutin demiri kesmek makuldür (KDIGO 2026, UN 2.2).</p>');
+      else if (startFe) h += box('info', '', hd ? '<p>G5HD: ferritin ≤500 ng/mL ve TSAT ≤%30 ise demir başlayın (KDIGO 2026, 2.1).</p>' : '<p>Diyaliz dışı KBH veya PD: ferritin <100 ve TSAT <%40 ya da ferritin 100–299 ve TSAT <%25 ise demir başlayın (KDIGO 2026, 2.3).</p>');
     }
     if (need(v, ['wt', 'hb', 'hbt']) && v.hbt > v.hb) out.push(res('Ganzoni demir açığı', f(C.ganzoni(v.wt, v.hbt, v.hb), 0), 'mg', 'accent', 'Kilo × (hedef − mevcut Hb) × 2,4 + 500 mg depo'));
     if (v.epo != null || v.darb != null) {
@@ -1391,7 +1396,7 @@ card('elektrolit', 'c-hyperk', 'Hiperkalemi', 'Şiddet · acil tedavi basamaklar
     var h = rows([res('Şiddet', sev, '', tone, (v.ecg ? 'EKG değişikliği: acil' : 'EKG normal olsa da acil tedaviyi geciktirmeyin (KBH\'de EKG duyarsızdır)') + ' · Hafif 5,5–5,9 · Orta 6,0–6,4 · Ağır ≥6,5')]);
     if (v.k < 5.5) return h;
     var s = [];
-    if (v.ecg || v.k >= 6.5) s.push('<b>1. Membran stabilizasyonu:</b> %10 kalsiyum glukonat 10–20 mL 2–5 dakikada IV' + (v.dig ? ', <b>digoksin kullanımında 100 mL %5 dekstrozda 20–30 dakikada</b>' : '') + '. Etki 1–3 dk\'da başlar, 30–60 dk sürer; EKG düzelmezse 5–10 dk sonra tekrarlayın. Kalsiyum klorür %10 5–10 mL (3 kat elemental Ca) yalnız santral yoldan.');
+    if (v.ecg || v.k >= 6.5) s.push('<b>1. Membran stabilizasyonu:</b> %10 kalsiyum glukonat 30 mL 5–10 dakikada IV, büyük venden (bölüm standardı)' + (v.dig ? ', <b>digoksin kullanımında 100 mL %5 dekstrozda 20–30 dakikada</b>' : '') + '. Etki 1–3 dk\'da başlar, 30–60 dk sürer; EKG düzelmezse 5–10 dk sonra tekrarlayın. Alternatif: kalsiyum klorür %10 10 mL (3 kat elemental Ca), yalnız santral yoldan.');
     var ins = v.ckd ? '5 Ü' : '10 Ü';
     var glu = v.glu != null && v.glu >= 250 ? 'Kan şekeri ≥200–250 mg/dL olduğundan dekstroz vermeyin.' : '50 mL %50 dekstroz (25 g glukoz). Etki 15–30 dk\'da başlar, 4–6 sa sürer; K\'yı 0,5–1,0 mmol/L düşürür.';
     s.push('<b>2. Hücre içine kaydırma:</b> kristalize insülin ' + ins + ' IV + ' + glu + ' Kan şekerini izleyin.' + (v.ckd ? ' İleri KBH/SDBY\'de insülin klirensi azaldığından doz 5 Ü\'ye düşürülür.' : ''));
