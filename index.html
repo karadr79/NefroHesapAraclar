@@ -235,7 +235,7 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
       <a class="linkcard" href="https://karadr79.github.io/nefro-kons/" target="_blank" rel="noopener"><b>Nefro Kons</b><span>Nefroloji konsültasyon formu ve el kitabı ↗</span></a>
       <div class="box info"><b>Kullanım koşulu.</b> Bu uygulama eğitim ve hızlı başvuru amaçlıdır; klinik kararın ve kurum protokollerinin yerini almaz. Hasta tanımlayıcı veri toplamaz ve sunucuya veri göndermez.</div>
       <dl class="facts">
-        <dt>Sürüm</dt><dd>0.3.2 · 22 Ekim 2026</dd>
+        <dt>Sürüm</dt><dd>0.4.0 · 3 Kasım 2026</dd>
         <dt>Formül testleri</dt><dd>108 referans olgu, 108 geçti</dd>
         <dt>Onaylı ilaç</dt><dd id="onay-sayi"></dd>
         <dt>Çevrimdışı</dt><dd id="sw-state">Denetleniyor…</dd>
@@ -938,6 +938,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = ILAC; else
 })(this);
 
 </script>
+<script src="disaktar.js"></script>
 <script>
 /* Nefro Araçlar — arayüz */
 (function () {
@@ -1745,7 +1746,7 @@ function renderDrugs() {
       '<div class="meta">' + d.grup + ' · bantlar ' + (d.temel === 'CrCl' ? 'CrCl (mL/dk)' : 'eGFR (mL/dk/1,73 m²)') + '</div>' +
       (d.yukleme ? '<p class="load"><b>Yükleme:</b> ' + d.yukleme + '</p>' : '') +
       '<div class="tw"><table class="dose">' + bands + dr + '<tr><th>HD sonrası ek</th><td>' + d.ekDoz + '</td></tr></table></div>' +
-      (d.not ? '<p class="note">' + d.not + '</p>' : '') + '<p class="src">Kaynak: ' + d.kaynak + '</p></article>';
+      (d.not ? '<p class="note">' + d.not + '</p>' : '') + '<p class="src">Kaynak: ' + d.kaynak + '</p>' + (window.DA ? DA.btnHTML().replace('<button ', '<button data-da-drug="' + ILAC.indexOf(d) + '" ') : '') + '</article>';
   }).join('') || '<p class="hint">Eşleşen ilaç yok.</p>';
 }
 
@@ -1843,6 +1844,43 @@ document.addEventListener('DOMContentLoaded', function () {
   setTab(['hesap', 'elektrolit', 'modul', 'ilac', 'kaynak'].indexOf(start) >= 0 ? start : (store('tab') || 'hesap'));
   var first = $('#c-egfr'); if (first) { first.open = true; }
   sw();
+});
+
+/* ---------- Dışa aktarma: PDF ve Excel (disaktar.js) ---------- */
+document.addEventListener('DOMContentLoaded', function () {
+  if (!window.DA) return;
+  var MODE = { yok: 'Yok', hd: 'Hemodiyaliz', pd: 'Periton diyalizi', crrt: 'CRRT' };
+  DA.config({ app: 'Nefro Araçlar', file: 'NefroAraclar', color: '#46BDD0', fab: 78, kind: 'Hesaplama raporu', patientTitle: 'Hasta bilgileri (üst şerit)',
+    patient: function () {
+      var k = kidney(), r = [['Yaş', P.age, 'yıl'], ['Cinsiyet', P.sex === 'K' ? 'Kadın' : 'Erkek'], ['Kilo', f(P.wt, 1), 'kg'], ['Boy', f(P.ht, 0), 'cm'], ['Kreatinin', f(P.cr, 2), 'mg/dL']];
+      if (P.cys) r.push(['Sistatin C', f(P.cys, 2), 'mg/L']);
+      r.push(['Renal replasman', MODE[P.mode]]);
+      if (k.egfrBest) r.push(['eGFR (en iyi tahmin)', f(k.egfrBest, 0), 'mL/dk/1,73 m²', k.egfrcc ? 'kreatinin–sistatin C' : 'kreatinin']);
+      if (k.crcl) r.push(['CrCl (Cockcroft-Gault)', f(k.crcl, 0), 'mL/dk', k.cgw.kind + ' kilo']);
+      return r.filter(function (x) { return x[1] != null && x[1] !== '' && x[1] !== '—'; });
+    } });
+  var PATS = [{ sel: '.res', l: '.rl', v: '.rv', u: '.rv span', n: '.rn' }];
+  cards.forEach(function (c) {
+    var el = document.getElementById(c.id), body = el && $('.body', el); if (!body) return;
+    var b = DA.button(); body.insertBefore(b, $('.extra', body));
+    b.addEventListener('click', function () {
+      var o = DA.outputs($('.out', el), PATS);
+      if (!o.results.length) { DA.toast('Önce gerekli alanları doldurun'); return; }
+      DA.add({ title: c.title, sub: c.sub, inputs: DA.inputs($('.grid', el)), results: o.results, notes: o.notes });
+    });
+  });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-da-drug]'); if (!b) return;
+    var d = ILAC[+b.dataset.daDrug], k = kidney(), dial = P.mode !== 'yok', val = d.temel === 'CrCl' ? k.crcl : k.egfrBest, res = [];
+    if (dial) res.push([MODE[P.mode], d[P.mode], '', 'Diyaliz modalitesine göre']);
+    else d.bantlar.forEach(function (bb) { if (bandHit(bb, val)) res.push([(d.temel === 'CrCl' ? 'CrCl ' : 'eGFR ') + f(val, 0), bb[2], '', 'Hastanın düzeyine uyan bant']); });
+    if (d.yukleme) res.push(['Yükleme dozu', d.yukleme, '', '']);
+    if (d.ekDoz) res.push(['HD sonrası ek doz', d.ekDoz, '', '']);
+    var tmp = document.createElement('div'), strip = function (h) { tmp.innerHTML = h; return DA.clean(tmp.textContent); };
+    res = res.map(function (r) { return [r[0], strip(r[1]), '', r[3]]; });
+    DA.add({ title: 'Böbrek dozu: ' + d.ad, sub: d.grup + ' · bantlar ' + (d.temel === 'CrCl' ? 'CrCl (mL/dk)' : 'eGFR (mL/dk/1,73 m²)'), inputs: [[d.temel === 'CrCl' ? 'CrCl' : 'eGFR', f(val, 0), d.temel === 'CrCl' ? 'mL/dk' : 'mL/dk/1,73 m²'], ['Renal replasman', MODE[P.mode]]],
+      results: res, notes: [d.not ? strip(d.not) : '', 'Kaynak: ' + strip(d.kaynak), d.onay ? 'Klinik onay: ' + d.onay : 'Klinik onay bekliyor'].filter(Boolean) });
+  });
 });
 })();
 
