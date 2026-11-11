@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Nefro Araçlar</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="author" content="Prof. Dr. Ekrem KARA">
 <meta name="theme-color" content="#0E1F2E">
 <meta name="description" content="Nefroloji hesaplayıcıları, asit–baz ve elektrolit algoritmaları, böbrek dozu rehberi. Çevrimdışı çalışır.">
 <link rel="manifest" href="manifest.webmanifest">
@@ -191,7 +192,9 @@ nav.bottom button[aria-current="page"] svg { stroke-width: 2.2; }
 :root{--head:#14293D;--muted:#4D5F6A;--f-ui:"Atkinson Hyperlegible Next",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--f-num:"Atkinson Hyperlegible Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace}
 .fld label i{opacity:1;color:var(--muted)}
 </style><!--/suite-head-->
-<!--hareket--><link rel="stylesheet" href="hareket.css"><style id="hareket-app">
+<!--hareket--><link rel="stylesheet" href="hareket.css">
+<link rel="stylesheet" href="ortak.css">
+<script src="ortak.js"></script><style id="hareket-app">
 /* Apple-stili katman: yarı saydam üst başlık ve alt gezinme */
 .top{--hk-base:var(--head)}
 nav.bottom{--hk-base:var(--surface)}
@@ -203,10 +206,10 @@ nav.bottom{background:color-mix(in srgb,var(--hk-base) 80%,transparent)!importan
 </style>
 </head>
 <body>
-<!--suite-nav--><nav class="suite" aria-label="RTEÜ Nefroloji uygulamaları"><span class="suite-org">RTEÜ Nefroloji</span><ul class="suite-apps"><li><a href="https://karadr79.github.io/nefro-kons/" style="--suite-c:#A9BCD3"><span class="sl">Konsültasyon</span><span class="ss">Konsültasyon</span></a></li><li><a href="https://karadr79.github.io/NefroHesapAraclar/" style="--suite-c:#46BDD0" aria-current="page"><span class="sl">Hesap araçları</span><span class="ss">Hesap</span></a></li><li><a href="https://karadr79.github.io/KBHRehberi/" style="--suite-c:#7FB0E0"><span class="sl">KBH Rehberi</span><span class="ss">KBH</span></a></li><li><a href="https://karadr79.github.io/NakilRehberi/" style="--suite-c:#C7A6E8"><span class="sl">Nakil Rehberi</span><span class="ss">Nakil</span></a></li><li><a href="https://karadr79.github.io/KlinikBeslenme/" style="--suite-c:#5DBE8F"><span class="sl">Klinik beslenme</span><span class="ss">Beslenme</span></a></li></ul></nav><!--/suite-nav-->
+<!--suite-nav--><nav class="suite" aria-label="RTEÜ Nefroloji uygulamaları"><span class="suite-org">RTEÜ Nefroloji</span><ul class="suite-apps"><li><a href="https://karadr79.github.io/nefro-kons/" style="--suite-c:#A9BCD3"><span class="sl">Konsültasyon</span><span class="ss">Konsültasyon</span></a></li><li><a href="https://karadr79.github.io/NefroHesapAraclar/" style="--suite-c:#46BDD0" aria-current="page"><span class="sl">Hesap araçları</span><span class="ss">Hesap</span></a></li><li><a href="https://karadr79.github.io/KBHRehberi/" style="--suite-c:#7FB0E0"><span class="sl">KBH Rehberi</span><span class="ss">KBH</span></a></li><li><a href="https://karadr79.github.io/NakilRehberi/" style="--suite-c:#C7A6E8"><span class="sl">Nakil Rehberi</span><span class="ss">Nakil</span></a></li><li><a href="https://karadr79.github.io/KlinikBeslenme/" style="--suite-c:#5DBE8F"><span class="sl">Klinik beslenme</span><span class="ss">Beslenme</span></a></li><li><a href="https://karadr79.github.io/SemiyolojiRehberi/" style="--suite-c:#F2A93B"><span class="sl">Semiyoloji</span><span class="ss">Semiyoloji</span></a></li></ul></nav><!--/suite-nav-->
 <div class="app">
   <header class="top">
-    <div class="brand"><span class="mark" aria-hidden="true"></span><div><h1>Nefro Araçlar</h1><p>RTEÜ Nefroloji · eğitim amaçlıdır</p></div></div>
+    <div class="brand"><span class="mark" aria-hidden="true"></span><div><h1>Nefro Araçlar</h1><p>Prof. Dr. Ekrem KARA · RTEÜ Nefroloji</p></div></div>
     <button type="button" id="strip-btn" class="strip" aria-expanded="false" aria-controls="pt"><span id="strip-sum"></span><span class="edit">Hasta</span></button>
     <form id="pt" class="pt" hidden onsubmit="return false">
       <div class="grid">
@@ -223,6 +226,7 @@ nav.bottom{background:color-mix(in srgb,var(--hk-base) 80%,transparent)!importan
   </header>
 
   <main>
+<div id="rtQuick" class="rt-quick"></div>
     <section class="tab" id="tab-hesap"><h2>Hesap</h2><div class="cards"></div></section>
     <section class="tab" id="tab-elektrolit" hidden><h2>Asit–baz ve elektrolit</h2><div class="cards"></div></section>
     <section class="tab" id="tab-modul" hidden><h2>Risk hesapları ve klinik modüller</h2><div class="cards"></div></section>
@@ -238,6 +242,8 @@ nav.bottom{background:color-mix(in srgb,var(--hk-base) 80%,transparent)!importan
     </section>
     <section class="tab" id="tab-kaynak" hidden>
       <h2>Kaynaklar ve ayarlar</h2>
+<div id="rtBy"></div>
+<div class="rt-foot" id="rtHost" style="border-top:0;margin-top:10px"></div>
       <div class="settings">
         <div class="fld"><label for="set-unit">Üre birimi</label><select id="set-unit"><option value="ure">Üre (mg/dL)</option><option value="bun">BUN (mg/dL)</option></select></div>
         <div class="fld"><label for="set-theme">Tema</label><select id="set-theme"><option value="auto">Sistem</option><option value="light">Açık</option><option value="dark">Koyu</option></select></div>
@@ -245,7 +251,8 @@ nav.bottom{background:color-mix(in srgb,var(--hk-base) 80%,transparent)!importan
       <a class="linkcard" href="https://karadr79.github.io/nefro-kons/" target="_blank" rel="noopener"><b>Nefro Kons</b><span>Nefroloji konsültasyon formu ve el kitabı ↗</span></a>
       <div class="box info"><b>Kullanım koşulu.</b> Bu uygulama eğitim ve hızlı başvuru amaçlıdır; klinik kararın ve kurum protokollerinin yerini almaz. Hasta tanımlayıcı veri toplamaz ve sunucuya veri göndermez.</div>
       <dl class="facts">
-        <dt>Sürüm</dt><dd>0.4.2 · 3 Kasım 2026</dd>
+        <dt>Hazırlayan</dt><dd>Prof. Dr. Ekrem KARA</dd>
+        <dt>Sürüm</dt><dd>0.6.0 · 11 Kasım 2026</dd>
         <dt>Formül testleri</dt><dd>108 referans olgu, 108 geçti</dd>
         <dt>Onaylı ilaç</dt><dd id="onay-sayi"></dd>
         <dt>Çevrimdışı</dt><dd id="sw-state">Denetleniyor…</dd>
@@ -1898,5 +1905,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
 <!--hareket--><script src="hareket.js"></script>
 <script>Hareket.init({reveal:['.tab','#pt']});</script>
+<script>
+/* Ortak katman: sık kullanılanlar, yazı boyutu, animasyon, imza */
+(function(){if(!window.RTEU)return;const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+ const boot=()=>{if(!$("details.card")){setTimeout(boot,120);return}start()};if(document.readyState==="complete")boot();else window.addEventListener("load",boot);
+ function start(){
+ RTEU.init({key:"na",favHint:"Bir hesaplayıcının altındaki “☆ Sık kullanılanlara ekle” düğmesiyle sık kullandıklarınızı buraya sabitleyebilirsiniz.",tools:"#rtHost",light:true,view:"main",zoom:"main",enter:false,reset:false,press:".linkcard,.pills button,#rtQuick .rt-chip",cards:"details.card",tables:".rt-none",outs:"details.card .out",outVal:".big,.val,strong,b"});
+ $("#rtBy").innerHTML=RTEU.bylineHTML();
+ const names={};$$("details.card").forEach(c=>{const t=c.querySelector("summary .t");if(!c.id||!t)return;names[c.id]=t.textContent;const b=c.querySelector(".body");if(b)b.insertAdjacentHTML("beforeend",'<p style="margin:12px 0 0">'+RTEU.starHTML(c.id)+"</p>");c.addEventListener("toggle",()=>{if(c.open){RTEU.visit(c.id);quick()}})});
+ function quick(){$("#rtQuick").innerHTML=RTEU.quickHTML(names,null).replace(/data-go=/g,"data-rt-open=")}
+ document.addEventListener("click",e=>{if(RTEU.starClick(e)){quick();return}const o=e.target.closest("[data-rt-open]");if(!o)return;const c=document.getElementById(o.dataset.rtOpen);if(!c)return;const tab=c.closest("section.tab");if(tab&&tab.hidden){const nb=$('nav.bottom button[data-tab="'+tab.id.replace("tab-","")+'"]');if(nb)nb.click()}c.open=true;setTimeout(()=>{c.scrollIntoView({block:"start",behavior:"smooth"});RTEU.focus(c)},80)});
+ const vis=()=>{const k=$("#tab-kaynak"),i=$("#tab-ilac");$("#rtQuick").hidden=!(k&&k.hidden&&i&&i.hidden)};
+ const obs=new MutationObserver(vis);$$("section.tab").forEach(t=>obs.observe(t,{attributes:true,attributeFilter:["hidden"]}));
+ $$("nav.bottom button").forEach(b=>b.addEventListener("click",()=>{const t=$("#tab-"+b.dataset.tab);if(t)RTEU.enter(t)}));
+ quick();vis();RTEU.enhance(document);
+ }
+})();
+</script>
 </body>
 </html>
